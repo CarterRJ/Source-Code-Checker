@@ -34,6 +34,10 @@ if ($uploadOk == 0) {
     }
 }
 
+exec("gcc uploads/simple.c");
+//exec("a.exe");
+echo "<h2> Did it work? </h2>";
+echo exec("whoami");
 //Error Checking
 echo "<h2> Errors </h2>";
 $lines = file($target_file); 
