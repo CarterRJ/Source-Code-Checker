@@ -34,20 +34,10 @@ if ($uploadOk == 0) {
     }
 }
 
-exec("gcc uploads/simple.c");
+//exec("gcc uploads/simple.c");
 //exec("a.exe");
 echo "<h2> Did it work? </h2>";
 echo exec("whoami");
-//Error Checking
-echo "<h2> Errors </h2>";
-$lines = file($target_file); 
-$numLines = count($lines);
-if($numLines > 130){
-echo "<p>There are <strong>$numLines </strong>lines. Limit is 130</p>";
-}
-foreach($lines as $line){
-if(strlen($line) > 90){
-	echo "<p>".$line." <strong>line too long maxlength = 90</strong></p>";
-	}
-} 
+include_once ("rules.php");
+
 ?>
