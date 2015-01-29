@@ -17,7 +17,7 @@ if ($_FILES["fileToUpload"]["size"] > 5000) {
     echo "Sorry, your file is too large.";
     $uploadOk = 0;
 }
-// Allow certain file formats
+// Allow certain file formats***TODO
 if($FileType != "c" && $FileType != "bak") {
     echo "Sorry, only .c and .bak files are allowed.\n";
     $uploadOk = 0;
