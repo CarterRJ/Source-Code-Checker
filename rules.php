@@ -3,7 +3,7 @@ include("config.php");
 //Error Checking
 echo "<h2> Errors </h2>";
 
-//L006 Source file sould not be too long
+//L006 Source file should not be too long
 $lines = file($target_file); 
 $numLines = count($lines);
 if($numLines > MAX_NUM_LINES){
@@ -17,9 +17,20 @@ if(strlen($line) > MAX_LINE_LENGTH){
 	}
 } 
 
-//File names should not be too long F002 *PERSONAL VERSION
+//F002 File names should not be too long F002 *PERSONAL VERSION
 if (strlen(basename($target_file)) > MAX_FILENAME_LENGTH){
-	
 	echo"<p> File name <strong>".basename($target_file)." </strong>too long <strong> max length = ".MAX_FILENAME_LENGTH."</strong></p>";
 }
+
+//F001 Source files should not use the '\r' (CR) character FAILED
+$count =0;
+foreach($lines as $line){
+$count++;
+echo "<p>Source files should not use the '\\r' (CR) character. <strong>Line: ".$count."</strong></p>";
+}
+	
 ?>
+	
+	
+	
+	
