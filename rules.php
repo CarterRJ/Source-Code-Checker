@@ -48,7 +48,6 @@ foreach ( $lines as $line ) {
 $emptyLines = 0;
 $discovered = false;
 $count = 0;
-$i = 0;
 foreach ( $lines as $line ) {
 	$count ++;
 	if (trim ( $line ) == "") {
@@ -64,6 +63,13 @@ foreach ( $lines as $line ) {
 	}
 }
 
+// L003a Source files should not have a leading empty line
+$count = 0;
+	if(count($lines)>0){
+	if (trim($lines[0]) ==""){
+		echo "<p>Source files should not have a leading empty line<strong>Line: $count</strong></p>";
+	}
+}
 ?>
 	
 	
