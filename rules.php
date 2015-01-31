@@ -22,11 +22,17 @@ if (strlen ( basename ( $target_file ) ) > MAX_FILENAME_LENGTH) {
 	echo "<p> File name <strong>" . basename ( $target_file ) . " </strong>too long <strong> max length = " . MAX_FILENAME_LENGTH . "</strong></p>";
 }
 
-// F001 Source files should not use the '\r' (CR) character FAILED
+// F001 Source files should not use solely the '\r' (CR) character FAILED
 $count = 0;
 foreach ( $lines as $line ) {
 	$count ++;
-	// echo "<p>Source files should not use the '\\r' (CR) character. <strong>Line: ".$count."</strong></p>";
+	if (strpos ( $line, "\r" ) + 1 == strlen ( $line )) {
+		echo strpos ( $line, "\r" ) + 1;
+		echo ", ";
+		echo strlen ( $line );
+		echo "\n";
+		echo "<p>Source files should not use the '\\r' (CR) character. <strong>Line: " . $count . "</strong></p>";
+	}
 }
 
 // L002 Don't use tab characters
