@@ -26,8 +26,8 @@ if (strlen ( basename ( $target_file ) ) > MAX_FILENAME_LENGTH) {
 $count = 0;
 foreach ( $lines as $line ) {
 	$count ++;
-	if (strpos ( $line, "\r" ) + 1 == strlen ( $line )) {
-		echo strpos ( $line, "\r" ) + 1;
+	if (strpos ( $line, chr ( 0x0D ) ) + 1 == strlen ( $line )) {
+		echo strpos ( $line, chr ( 0x0D ) ) + 1;
 		echo ", ";
 		echo strlen ( $line );
 		echo "\n";
@@ -65,8 +65,8 @@ foreach ( $lines as $line ) {
 
 // L003a Source files should not have a leading empty line
 $count = 0;
-	if(count($lines)>0){
-	if (trim($lines[0]) ==""){
+if (count ( $lines ) > 0) {
+	if (trim ( $lines [0] ) == "") {
 		echo "<p>Source files should not have a leading empty line<strong>Line: $count</strong></p>";
 	}
 }
