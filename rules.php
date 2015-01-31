@@ -37,6 +37,27 @@ foreach ( $lines as $line ) {
 		echo "<p>Source files should not use tabs <strong>Line: " . $count . "</strong></p>";
 	}
 }
+
+// L005 There should not be too many consecutive empty lines
+$emptyLines = 0;
+$discovered = false;
+$count = 0;
+$i = 0;
+foreach ( $lines as $line ) {
+	$count ++;
+	if (trim ( $line ) == "") {
+		$emptyLines ++;
+		
+		if (($emptyLines > MAX_EMPTY_LINES) && ($discovered == false)) {
+			$discovered = true;
+			echo "<p>Too many consecutive empty lines. <strong>Line: $count </strong></p>";
+		}
+	} else {
+		$emptyLines = 0;
+		$discovered = false;
+	}
+}
+
 ?>
 	
 	
