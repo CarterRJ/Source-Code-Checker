@@ -1,3 +1,2 @@
-pause
-vagrant ssh test1 -c "gcc /uploads/simple.c"
+vagrant ssh test1 -c "gcc /uploads/simple.c &> /uploads/output"
 pause

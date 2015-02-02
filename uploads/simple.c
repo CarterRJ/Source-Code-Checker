@@ -35,5 +35,5 @@ int main()
 printf("\t");
 while(1){}
 
-}
+}}
 
