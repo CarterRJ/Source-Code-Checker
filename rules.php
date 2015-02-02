@@ -67,7 +67,7 @@ foreach ( $lines as $line ) {
 $count = 0;
 if (count ( $lines ) > 0) {
 	if (trim ( $lines [0] ) == "") {
-		echo "<p>Source files should not have a leading empty line<strong>Line: $count</strong></p>";
+		echo "<p>Source files should not have a leading empty line <strong>Line: $count</strong></p>";
 	}
 }
 ?>

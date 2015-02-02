@@ -39,5 +39,6 @@ if ($uploadOk == 0) {
 echo "<h2> Did it work? </h2>";
 echo exec("whoami");
 include_once ("rules.php");
+include_once ("vm-control.php");
 
 ?>
