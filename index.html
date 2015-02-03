@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
 <body>
+	<form action="upload.php" method="post"
+		enctype="application/x-www-form-urlencoded">
+		<label for="sourcecode">Source code:</label>
+		<textarea id="sourcecode" name="code"></textarea>
+		<input type="submit" value="Submit" name="source">
+	</form>
 
-<form action="upload.php" method="post" enctype="multipart/form-data">
-    Select image to upload:
-    <input type="file" name="fileToUpload" id="fileToUpload">
-    <input type="submit" value="Upload File" name="submit">
-</form>
+	<form action="upload.php" method="post" enctype="multipart/form-data">
+		Select image to upload: <input type="file" name="fileToUpload"
+			id="fileToUpload"> <input type="submit" value="Upload File"
+			name="submit">
+	</form>
 
 </body>
 </html>

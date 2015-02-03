@@ -27,7 +27,7 @@ $count = 0;
 foreach ( $lines as $line ) {
 	$count ++;
 	if (strpos ( $line, chr ( 0x0D ) ) + 1 == strlen ( $line )) {
-		echo strpos ( $line, chr ( 0x0D ) ) + 1;
+		echo strpos ( $line, chr ( 0x0A ) ) + 1;
 		echo ", ";
 		echo strlen ( $line );
 		echo "\n";
