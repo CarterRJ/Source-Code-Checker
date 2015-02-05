@@ -82,13 +82,13 @@ if (count ( $lines ) > 0) {
 
 // OUTPUT
 $output_count = 0;
-echo '<div class = "code"><code style = "background: pink;"><p>';
+echo '<div class = "code"><code>';
 foreach ( $lines as $line ) {
 	$no_match = 1;
 	$output_count ++;
 	// Long lines
 	If (($source_too_long = true) && ($output_count == MAX_NUM_LINES)) {
-		echo '<span class = "long_source">';
+		echo '<div class = "long_source">';
 	}
 	
 	foreach ( $longlines as $ll ) {
@@ -104,7 +104,7 @@ foreach ( $lines as $line ) {
 		echo str_replace ( ' ', '&nbsp;', htmlentities ( $line, ENT_QUOTES, 'UTF-8' ) ) . '<br>';
 	}
 }
-echo '</p></span></code></div>';
+echo '</div></code></div></p>';
 
 ?>
 	

@@ -19,9 +19,11 @@ margin-bottom: 10px;
 }
 
 .code{
-	background: silver;
+	background: lavender;
 }
 
 .long_source{
+	display: inline-block;
 	background: grey;
+	width: 100%;
 }
