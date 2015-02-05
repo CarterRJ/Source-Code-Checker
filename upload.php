@@ -53,6 +53,7 @@ else if (isset ( $_POST ["submit"] )) {
 
 // exec("gcc uploads/simple.c");
 // exec("a.exe");
+
 echo "<h2> Did it work? </h2>";
 echo exec ( "whoami" );
 include_once ("rules.php");

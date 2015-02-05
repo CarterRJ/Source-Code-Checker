@@ -1,7 +1,16 @@
-#sourcecode{
-	height: 60%;
-	width: 60%;
+#sourcecode {
+	/* 	height: 60%; */
+	width: 100%;
 	min-height: 400px;
 	min-width: 350px;
 	display: block;
+}
+
+.pasteBox, .uploadCode {
+margin-bottom: 10px;
+}
+
+#uploadCode>div {
+	/* 	margin: 48%; */
+	
 }
