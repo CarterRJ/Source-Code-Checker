@@ -36,3 +36,74 @@ printf("\t");
 while(1){}
 
 }}
+
+
+
+
+
+
+
+le;
+g a
+gij ae
+gaegj pekropj g
+j 
+g a
+ejg poaej orpgjoaoep gja
+ gopaerj gpoajegj poaejg agopag 
+aeig
+aig a
+iga[pkr g
+ka
+kgajg agera r;aergaer;g ;aerg;aerg aer;g; aer;g; ae;g; aerg;ae;rg;[arg;agarg
+a[;lg
+a;g
+;aga
+;a
+;g
+;rgs
+;g
+;sg;a
+;
+;g
+a;g
+a;
+rg;a
+; 
+
+
+
+
+af
+ff
+
+f
+awf
+e
+af
+awe
+f
+a
+wef
+
+a
+wef
+
+
+
+a
+f
+a
+f
+a
+f
+
+
+
+f
+
+a
+f
+a
+wf
+af

@@ -14,3 +14,14 @@ margin-bottom: 10px;
 	/* 	margin: 48%; */
 	
 }
+.max_lines{
+	color: red;
+}
+
+.code{
+	background: silver;
+}
+
+.long_source{
+	background: grey;
+}

@@ -1,0 +1,49 @@
+<div class="container-alternate">
+		<div class="container">
+			<h3 id="about" class="subhead">About Us</h3>
+			<div class="row about">
+				<div class="col-md-10 col-md-offset-1 text-center">
+
+					Ryan Carter (<a href="http://carterrj.wordpress.com/">http://carterrj.wordpress.com</a>).
+					<p></p>
+
+					<em>Supervisor:</em>Dr. Graham Roberts.
+					<p></p>
+				</div>
+				<!-- /.col-md-10 -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /.container-alternate -->
+
+	<footer>
+		<div class="container clearfix">
+			<p class="pull-left">Copyright © 2015</p>
+			<p class="pull-right">
+				<a href="http://www.engineering.ucl.ac.uk/">@Carter_RJ</a>
+			</p>
+		</div>
+		<!-- /.container -->
+	</footer>
+
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script>
+		$(".nav-link").click(
+				function(e) {
+					e.preventDefault();
+					var link = $(this);
+					var href = link.attr("href");
+					$("html,body").animate({
+						scrollTop : $(href).offset().top - 80
+					}, 500);
+					link.closest(".navbar").find(
+							".navbar-toggle:not(.collapsed)").click();
+				});
+	</script>
+
+
+</body>
+</html>

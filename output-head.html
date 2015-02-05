@@ -1,0 +1,86 @@
+<html lang="en">
+<head>
+<div id="coFrameDiv" style="height: 0px; display: none;">
+	<iframe id="coToolbarFrame"
+		src="chrome-extension://mkfokfffehpeedafpekjeddnmnjhmcmk/toolbar/placeholder.html"
+		style="height: 0px; width: 100%; display: none;"></iframe>
+</div>
+<meta charset="utf-8">
+<title>Ryan Carter - UCL Computer Science</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/lighter.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/index.css">
+<style type="text/css"></style>
+<link rel="stylesheet" id="coToolbarStyle"
+	href="chrome-extension://mkfokfffehpeedafpekjeddnmnjhmcmk/toolbar/styles/placeholder.css"
+	type="text/css">
+<script type="text/javascript" id="cosymantecbfw_removeToolbar">
+	(function() {
+		var toolbarElement = {}, parent = {}, interval = 0, retryCount = 0, isRemoved = false;
+		if (window.location.protocol === 'file:') {
+			interval = window.setInterval(function() {
+				toolbarElement = document.getElementById('coFrameDiv');
+				if (toolbarElement) {
+					parent = toolbarElement.parentNode;
+					if (parent) {
+						parent.removeChild(toolbarElement);
+						isRemoved = true;
+						if (document.body && document.body.style) {
+							document.body.style.setProperty('margin-top',
+									'0px', 'important');
+						}
+					}
+				}
+				retryCount += 1;
+				if (retryCount > 10 || isRemoved) {
+					window.clearInterval(interval);
+				}
+			}, 10);
+		}
+	})();
+</script>
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-ex1-collapse">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand nav-link" href="#top">Ryan Carter -
+					Automatic Marking</a>
+			</div>
+			<!-- /.navbar-header -->
+
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#features" class="nav-link">Features</a></li>
+					<li><a href="#faqs" class="nav-link">FAQs</a></li>
+					<li><a href="#about" class="nav-link">About</a></li>
+					<li><a href="#contact">Contact Us</a></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container -->
+	</nav>
+	<!-- /.navbar -->
+
+	<div id="top" class="jumbotron">
+		<div class="container">
+			<h1>Source code checker/marker</h1>
+			<h2>Helping YOU achieve YOUR goals since 1995</h2>
+			<p>
+				<a href="" class="btn btn-primary btn-lg">Download <span
+					class="glyphicon glyphicon-circle-arrow-down"></span></a>
+			</p>
+		</div>
+		<!-- /.container -->
+	</div>
+	<!-- /.jumbotron -->
+<!--THIS IS WHERE WE SPLIT THE TAIL-->
+
+	

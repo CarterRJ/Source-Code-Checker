@@ -1,9 +1,10 @@
 <?php
 // http://www.w3schools.com/php/php_file_upload.asp //They don't want you to copy
+include_once 'html.php';
 $target_dir = "uploads/";
 $uploadOk = 1;
-var_dump ( $_FILES );
-var_dump ( $_POST );
+//var_dump ( $_FILES );
+//var_dump ( $_POST );
 if (isset ( $_POST ["code"] )) {
 	$text = $_POST ["code"];
 	file_put_contents ( $target_dir . "somethingreallylonglol.c", $text );
@@ -57,6 +58,6 @@ else if (isset ( $_POST ["submit"] )) {
 echo "<h2> Did it work? </h2>";
 echo exec ( "whoami" );
 include_once ("rules.php");
-include_once ("vm-control.php");
+//include_once ("vm-control.php");
 
 ?>
