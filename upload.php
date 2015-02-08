@@ -58,6 +58,6 @@ else if (isset ( $_POST ["submit"] )) {
 echo "<h2> Did it work? </h2>";
 echo exec ( "whoami" );
 include_once ("rules.php");
-//include_once ("vm-control.php");
+include_once ("vm-control.php");
 
 ?>

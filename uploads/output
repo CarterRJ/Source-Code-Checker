@@ -1,1 +1,52 @@
+/uploads/simple.c:1:1: error: unknown type name 'HELLOW'
+/uploads/simple.c:1:14: error: expected '=', ',', ';', 'asm' or '__attribute__' before 'BODY'
+In file included from /usr/include/stdio.h:75:0,
+                 from /uploads/simple.c:3:
+/usr/include/libio.h:334:3: error: unknown type name 'size_t'
+/usr/include/libio.h:338:67: error: 'size_t' undeclared here (not in a function)
+/usr/include/libio.h:366:62: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/libio.h:375:6: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/libio.h:497:19: error: expected '=', ',', ';', 'asm' or '__attribute__' before '_IO_sgetn'
+In file included from /uploads/simple.c:3:0:
+/usr/include/stdio.h:320:35: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdio.h:326:47: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdio.h:338:20: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdio.h:345:10: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdio.h:387:44: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdio.h:391:45: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdio.h:663:11: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdio.h:666:9: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdio.h:676:8: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdio.h:706:15: error: expected '=', ',', ';', 'asm' or '__attribute__' before 'fread'
+/usr/include/stdio.h:712:15: error: expected '=', ',', ';', 'asm' or '__attribute__' before 'fwrite'
+/usr/include/stdio.h:734:15: error: expected '=', ',', ';', 'asm' or '__attribute__' before 'fread_unlocked'
+/usr/include/stdio.h:736:15: error: expected '=', ',', ';', 'asm' or '__attribute__' before 'fwrite_unlocked'
+In file included from /uploads/simple.c:4:0:
+/usr/include/stdlib.h:140:15: error: expected '=', ',', ';', 'asm' or '__attribute__' before '__ctype_get_mb_cur_max'
+In file included from /uploads/simple.c:4:0:
+/usr/include/stdlib.h:337:4: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdlib.h:367:4: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdlib.h:471:22: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdlib.h:473:22: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdlib.h:473:38: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdlib.h:485:36: error: expected declaration specifiers or '...' before 'size_t'
+In file included from /usr/include/stdlib.h:497:0,
+                 from /uploads/simple.c:4:
+/usr/include/alloca.h:33:22: error: expected declaration specifiers or '...' before 'size_t'
+In file included from /uploads/simple.c:4:0:
+/usr/include/stdlib.h:503:22: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdlib.h:508:45: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdlib.h:508:65: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdlib.h:756:9: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdlib.h:756:25: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdlib.h:761:34: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdlib.h:761:50: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdlib.h:840:6: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdlib.h:843:6: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdlib.h:847:31: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdlib.h:851:31: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdlib.h:860:38: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdlib.h:864:36: error: expected declaration specifiers or '...' before 'size_t'
+/usr/include/stdlib.h:871:15: error: expected '=', ',', ';', 'asm' or '__attribute__' before 'mbstowcs'
+/usr/include/stdlib.h:874:15: error: expected '=', ',', ';', 'asm' or '__attribute__' before 'wcstombs'
 /uploads/simple.c:38:2: error: expected identifier or '(' before '}' token
