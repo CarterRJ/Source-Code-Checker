@@ -24,7 +24,7 @@ foreach ( $lines as $line ) {
 		echo "<p>" . $line . " <strong>line too long max line length = " . MAX_LINE_LENGTH . " </strong></p>";
 	}
 }
-var_dump ( $longlines );
+//var_dump ( $longlines );
 
 // F002 File names should not be too long F002 *PERSONAL VERSION
 if (strlen ( basename ( $target_file ) ) > MAX_FILENAME_LENGTH) {
