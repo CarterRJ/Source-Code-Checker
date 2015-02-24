@@ -33,7 +33,7 @@ if(!empty($_POST['username']) && !empty($_POST['password']))
         else
         {
             echo "<h1>Error</h1>";
-            echo "<p>Sorry, your registration failed. Please go back and try again.</p>";    
+            echo "<p>Sorry, your registration failed. Please go back and <a href=\"register.php\">try again</a>.</p>";    
         }       
      }
 }

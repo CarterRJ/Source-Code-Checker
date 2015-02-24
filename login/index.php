@@ -17,7 +17,8 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand nav-link" href="#top">Ryan Carter - Source Code Checker</a>
+			<a class="navbar-brand nav-link" href="#top">Ryan Carter - Source
+				Code Checker</a>
 		</div>
 		<!-- /.navbar-header -->
 
@@ -49,8 +50,20 @@ if (! empty ( $_SESSION ['LoggedIn'] ) && ! empty ( $_SESSION ['Username'] )) //
 			<code><?php echo $_SESSION['Email']?></code>
 			<p></p>
 			<a href="logout.php">Log out</a>
-		</p>
-		</p>
+
+			<h1>My submissions</h1>
+			<?php
+	echo '<table class ="table">';
+	$mysubmissions = mysqli_query ( $db_conn, "SELECT * FROM uploads WHERE Username = '" . $_SESSION ['Username']."'" );
+	echo "<tr>
+		<th>Filename</th>
+		<th>Directory</th>
+		</tr>";
+	while ( $row = mysqli_fetch_array ( $mysubmissions ) ) { // Creates a loop to loop through results
+		echo "<tr><td>" . $row ['Filename'] . "</td><td>".$row ['Directory']."</td></tr>"; // $row['index'] the index here is a field name
+	}
+	echo "</table>";
+	?>
       
      <?php
 } elseif (! empty ( $_POST ['username'] ) && ! empty ( $_POST ['password'] )) // If user has submitted username and password
@@ -80,7 +93,10 @@ if (! empty ( $_SESSION ['LoggedIn'] ) && ! empty ( $_SESSION ['Username'] )) //
 	?>
 	
      
-   <h1>Member Login</h1>
+   
+		
+		
+		<h1>Member Login</h1>
 
 		<p>
 			Thanks for visiting! Please either login below, or <a
