@@ -9,7 +9,7 @@ Objectives:
 
     •	Users will be able to submit code and have it compile and run on the server
 
-    •	Be able to return some kind of quantitative information regarding the source code
+    •	Be able to return some kind of quantitative information regard the source code
 
     •	Develop and algorithm to provide useful information/suggestions about source code format
 
