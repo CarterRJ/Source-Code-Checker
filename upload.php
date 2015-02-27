@@ -1,6 +1,7 @@
 <?php
 // http://www.w3schools.com/php/php_file_upload.asp //They don't want you to copy
 include_once 'html.php';
+include_once 'db-info';
 $target_dir = "uploads/";
 $uploadOk = 1;
 //var_dump ( $_FILES );

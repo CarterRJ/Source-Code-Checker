@@ -7,6 +7,21 @@
 <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
 <link rel="stylesheet" href="../css/lighter.css" type="text/css" />
 <link rel="stylesheet" href="../css/login.css" type="text/css" />
+<script src="../js/jquery.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script>
+		$(".nav-link").click(
+				function(e) {
+					e.preventDefault();
+					var link = $(this);
+					var href = link.attr("href");
+					$("html,body").animate({
+						scrollTop : $(href).offset().top - 80
+					}, 500);
+					link.closest(".navbar").find(
+							".navbar-toggle:not(.collapsed)").click();
+				});
+	</script>
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -17,7 +32,7 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand nav-link" href="#top">Ryan Carter - Source
+			<a class="navbar-brand nav-link" href="../#top">Ryan Carter - Source
 				Code Checker</a>
 		</div>
 		<!-- /.navbar-header -->
@@ -37,36 +52,15 @@
 	<!-- /.navbar -->
 	<div id="main">
 <?php
-if (! empty ( $_SESSION ['LoggedIn'] ) && ! empty ( $_SESSION ['Username'] )) // If user is already logged in
+if (isset ( $_SESSION ['LoggedIn'] ) && isset ( $_SESSION ['Username'] )) // If user is already logged in
 {
+	
 	?>
- 
-     <h1>Member Area</h1>
-		<p>
-			Thanks for logging in! You are
-
-			<code><?php echo $_SESSION['Username'] ?></code>
-			and your email address is
-			<code><?php echo $_SESSION['Email']?></code>
-			<p></p>
-			<a href="logout.php">Log out</a>
-
-			<h1>My submissions</h1>
-			<?php
-	echo '<table class ="table">';
-	$mysubmissions = mysqli_query ( $db_conn, "SELECT * FROM uploads WHERE Username = '" . $_SESSION ['Username']."'" );
-	echo "<tr>
-		<th>Filename</th>
-		<th>Directory</th>
-		</tr>";
-	while ( $row = mysqli_fetch_array ( $mysubmissions ) ) { // Creates a loop to loop through results
-		echo "<tr><td>" . $row ['Filename'] . "</td><td>".$row ['Directory']."</td></tr>"; // $row['index'] the index here is a field name
-	}
-	echo "</table>";
-	?>
+ <meta http-equiv="refresh" content="0;members.php">
+    
       
      <?php
-} elseif (! empty ( $_POST ['username'] ) && ! empty ( $_POST ['password'] )) // If user has submitted username and password
+} elseif (isset ( $_POST ['username'] ) && isset ( $_POST ['password'] )) // If user has submitted username and password
 {
 	$username = mysqli_escape_string ( $db_conn, $_POST ['username'] );
 	$password = md5 ( mysqli_escape_string ( $db_conn, $_POST ['password'] ) );
@@ -75,14 +69,21 @@ if (! empty ( $_SESSION ['LoggedIn'] ) && ! empty ( $_SESSION ['Username'] )) //
 	if (mysqli_num_rows ( $checklogin ) == 1) {
 		$row = mysqli_fetch_array ( $checklogin );
 		$email = $row ['Email'];
+		$admin = $row ['Admin'];
 		
 		$_SESSION ['Username'] = $username;
 		$_SESSION ['Email'] = $email;
 		$_SESSION ['LoggedIn'] = 1;
+		$_SESSION ['Admin'] = $admin;
 		
 		echo "<h1>Success</h1>";
 		echo "<p>We are now redirecting you to the member area.</p>";
+		
+		if($_SESSION['Admin'] != 0){
+			echo "<meta http-equiv='refresh' content='1;admin.php' />";
+		}else{
 		echo "<meta http-equiv='refresh' content='1;index.php' />"; // Meta refresh
+		}
 	} else // Login failed.
 {
 		echo "<h1>Error</h1>";
@@ -98,24 +99,29 @@ if (! empty ( $_SESSION ['LoggedIn'] ) && ! empty ( $_SESSION ['Username'] )) //
 		
 		<h1>Member Login</h1>
 
-		<p>
-			Thanks for visiting! Please either login below, or <a
-				href="register.php">click here to register</a>.
-		</p>
+			<p>
+				Thanks for visiting! Please either login below, or <a
+					href="register.php">click here to register</a>.
+			</p>
 
-		<form method="post" action="index.php" name="loginform" id="loginform">
-			<fieldset>
-				<label for="username">Username:</label><input type="text"
-					name="username" id="username" /><br /> <label for="password">Password:</label><input
-					type="password" name="password" id="password" /><br /> <input
-					type="submit" name="login" id="login" value="Login" />
-			</fieldset>
-		</form>
+			<form method="post" action="index.php" name="loginform"
+				id="loginform">
+				<fieldset>
+					<label for="username">Username:</label><input type="text"
+						name="username" id="username" /><br /> <label for="password">Password:</label><input
+						type="password" name="password" id="password" /><br /> <input
+						type="submit" name="login" id="login" value="Login" />
+				</fieldset>
+			</form>
      
    <?php
 }
 ?>
  
-</div>
+
+	
+	
+	
+	</div>
 </body>
 </html>
