@@ -1,20 +1,36 @@
 <?php
 // http://www.w3schools.com/php/php_file_upload.asp //They don't want you to copy
 include_once 'html.php';
-include_once 'db-info';
+// include_once 'db-info';
+function gen_random_code($length) {
+	$characters = "abcdefghijklmnopqrstuvwxyzABCDERFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	$randomString = "";
+	for($i = 0; $i < $length; $i ++) {
+		$randomString .= $characters [mt_rand ( 0, strlen ( $characters ) - 1 )];
+	}
+	return $randomString;
+}
+
+$len_rand_fname = 20;
 $target_dir = "uploads/";
+$max_file_size = 50;
 $uploadOk = 1;
-//var_dump ( $_FILES );
-//var_dump ( $_POST );
+$uploaded = 1; //Uploaded or Copy and Paste
+echo "GALLELE00000O";
+ var_dump ( $_FILES );
+ var_dump ( $_POST );
 if (isset ( $_POST ["code"] )) {
 	$text = $_POST ["code"];
-	file_put_contents ( $target_dir . "somethingreallylonglol.c", $text );
-	$target_file = $target_dir . "somethingreallylonglol.c";
-	
+	do {
+		$rand_fname = gen_random_code ( $len_rand_fname );
+		$target_file = $target_dir . $rand_fname . ".c";
+		echo $uploadOk;
+	} while ( file_exists ( $target_file ) );
+	file_put_contents ( $target_file, $text );
 	// Check file size
-	var_dump ( $_FILES );
-	if (filesize($target_file) > 5000) {
+	if (filesize ( $target_file ) > $max_file_size) {
 		echo "Sorry, your file is too large.";
+		unlink ( $target_file );
 		$uploadOk = 0;
 	}
 } 
@@ -22,23 +38,24 @@ if (isset ( $_POST ["code"] )) {
 // Check if image file is a actual image or fake image
 else if (isset ( $_POST ["submit"] )) {
 	$target_file = $target_dir . basename ( $_FILES ["fileToUpload"] ["name"] );
-	$FileType = pathinfo($target_file,PATHINFO_EXTENSION);
-	// Check if file already exists
-	if (file_exists ( $target_file )) {
-		echo "Sorry, file already exists.";
-		$uploadOk = 0;
-	}
-	if ($FileType != "c" && $FileType != "bak") {
-		echo "Sorry, only .c and .bak files are allowed.\n";
+	$FileType = pathinfo ( $target_file, PATHINFO_EXTENSION );
+	
+	if ($FileType != "c") {
+		echo "Sorry, only .c files are allowed.\n";
 		$uploadOk = 0;
 	}
 	
 	// Check file size
-	if ($_FILES ["fileToUpload"] ["size"] > 5000) {
+	if ($_FILES ["fileToUpload"] ["size"] > $max_file_size) {
 		echo "Sorry, your file is too large.";
 		$uploadOk = 0;
 	}
-	// Allow certain file formats***TODO
+	// Give random filename
+	do {
+		$rand_fname = gen_random_code ( $len_rand_fname );
+		$target_file = $target_dir . $rand_fname . ".c";
+		echo $uploadOk;
+	} while ( file_exists ( $target_file ) );
 	
 	// Check if $uploadOk is set to 0 by an error
 	if ($uploadOk == 0) {
@@ -53,12 +70,9 @@ else if (isset ( $_POST ["submit"] )) {
 	}
 }
 
-// exec("gcc uploads/simple.c");
-// exec("a.exe");
-
-echo "<h2> Did it work? </h2>";
-echo exec ( "whoami" );
-include_once ("rules.php");
-include_once ("vm-control.php");
+if ($uploadOk) {
+	include_once ("rules.php");
+	include_once ("vm-control.php");
+}
 
 ?>

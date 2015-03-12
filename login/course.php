@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Member Area | Source Code Checker</title>
+<title>Admin Area | Source Code Checker</title>
 <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
 <link rel="stylesheet" href="../css/lighter.css" type="text/css" />
 <link rel="stylesheet" href="../css/login.css" type="text/css" />
@@ -52,55 +52,23 @@
 	<div id="main">
 <?php
 include "db-info.php";
+if ($_SESSION ['Admin'] == 0) {
+	
+	echo "<h1>You don't have access the this area</h1>";
+	echo "<p>We are now redirecting you...</p>";
+	echo "<meta http-equiv='refresh' content='2;index.php' />"; // Meta refresh
+	exit ();
+}
 ?>
 
-<h1>Member Area</h1>
-		<p>
-			Thanks for logging in! You are
 
-			<code><?php echo $_SESSION['Username'] ?></code>
-			and your email address is
-			<code><?php echo $_SESSION['Email']?></code>
-			<p>
-				<a href="logout.php">Log out</a>
-			</p>
-
-			<h1>My courses</h1>
 <?php
 
-$mycourses = mysqli_query ( $db_conn, "SELECT Course FROM `courses` INNER JOIN enrollments ON enrollments.courseID = courses.CourseID WHERE Username = '$_SESSION[Username]' ORDER BY Course" );
-echo '<table class = "table">';
-// echo "<tr>
-// <th>Course</th>
-// </tr>";
-while ( $row = mysqli_fetch_array ( $mycourses ) ) { // Creates a loop to loop through results
-	$course = $row ['Course'];
-	echo "<tr><td><a href='#'>$course</a></td></tr>";
-}
-echo "</table>";
-// Free result set
-mysqli_free_result ( $mycourses );
-?>
-
-<h1>My submissions</h1>
-<?php
-echo '<table class ="table">';
-$mysubmissions = mysqli_query ( $db_conn, "SELECT Username, Course, Filename, Directory FROM uploads INNER JOIN courses ON uploads.CourseID=courses.CourseID where Username = '$_SESSION[Username]' ORDER BY Course" );
-echo "<tr>
-		<th>Course</th>
-		<th>Filename</th>
-		<th>Directory</th>
-		</tr>";
-while ( $row = mysqli_fetch_array ( $mysubmissions ) ) { // Creates a loop to loop through results
-	$filename = $row ['Filename'];
-	$directory = $row ['Directory'];
-	$course = $row ['Course'];
-	echo "<tr><td>$course</td><td><a href='..$directory/$filename'>$filename</a></td><td>$directory</td></tr>";
-}
-echo "</table>";
-// Free result set
-mysqli_free_result ( $mysubmissions );
-
+$_SESSION ['course'] = $_GET ['course'];
 var_dump ( $_SESSION );
-?>		
-		
+echo "<h1> ".$_SESSION ['course']." </h1>";
+?>
+
+<button type="button" class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
+</button>

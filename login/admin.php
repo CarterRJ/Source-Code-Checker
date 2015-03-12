@@ -72,21 +72,53 @@ if ($_SESSION ['Admin'] == 0) {
 		<h2>My courses</h2>
 <?php
 
-$mycourses = mysqli_query ( $db_conn, "SELECT Course FROM `courses` INNER JOIN enrollments ON enrollments.courseID = courses.CourseID WHERE Username = '$_SESSION[Username]' ORDER BY Course" );
+if (!empty ( $_POST ['course'] )){
+	var_dump($_POST);
+	echo $newcourse = mysqli_query ( $db_conn, "INSERT INTO `courses` (`CourseID`, `Course`) VALUES (NULL, '".$_POST['course']."')");
+	echo $enrolnewcourse = mysqli_query($db_conn,"INSERT INTO `enrollments` (`Username`, `CourseID` ) VALUES ('".$_SESSION['Username']."', (SELECT CourseID FROM `Courses` WHERE Course = '".$_POST['course']."'))"); 
+}
+
+
+$mycourses = mysqli_query ( $db_conn, "SELECT * FROM `courses` INNER JOIN enrollments ON enrollments.courseID = courses.CourseID WHERE Username = '$_SESSION[Username]' ORDER BY Course" );
+
 echo '<table class = "table">';
-// echo "<tr>
-// <th>Course</th>
-// </tr>";
 while ( $row = mysqli_fetch_array ( $mycourses ) ) { // Creates a loop to loop through results
 	$course = $row ['Course'];
-	echo "<tr><td><a href='#'>$course</a></td></tr>";
+	echo "<tr><th><a href='course.php?course=$course'>$course</a></th></tr>";
+	$assignments = mysqli_query ( $db_conn, "SELECT * FROM `assignments` WHERE CourseID = " . $row ['CourseID'] );
+	$found = false;
+	while ( $ass_row = mysqli_fetch_array ( $assignments ) ) {
+		$found = true;
+		$assignment = $ass_row ['AssignmentName'];
+		echo "<tr><td>$assignment</td></tr>";
+	}
+	if ($found == false) {
+		echo "<tr><td>*none*</td></tr>";
+	}
 }
 echo "</table>";
+
 // Free result set
 mysqli_free_result ( $mycourses );
 ?>
-<h2>Create a new Assignment</h2>
+<h2>
+			<a>Create a new Assignment</a>
+		</h2>
 
+		<h2>
+			<a>Create a new Course</a>
+		</h2>
+		<form method="post" action="admin.php" name="newcourseform"
+			id="newcourseform">
+			<fieldset>
+				<label for="course">Course Name:</label><input type="text"
+					name="course" id="course" /><br /> <input type="submit"
+					name="newcourse" id="newcourse" value="Submit" />
+			</fieldset>
+		</form>
+		
+		
+		
 		<h2>My submissions</h2>
 <?php
 echo '<table class ="table">';
@@ -105,7 +137,7 @@ while ( $row = mysqli_fetch_array ( $mysubmissions ) ) { // Creates a loop to lo
 echo "</table>";
 // Free result set
 mysqli_free_result ( $mysubmissions );
-
+echo '$_SESSION:';
 var_dump ( $_SESSION );
 ?>
 

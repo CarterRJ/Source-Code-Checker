@@ -4,9 +4,15 @@ echo '<link href="css/lighter.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="css/index.css">';
 
 // Error Checking
-echo "<h2> Errors </h2>";
+echo "<h2> Feedback </h2>";
 $source_too_long = false;
 // L006 Source file should not be too long
+echo $target_file;
+
+
+
+
+
 $lines = file ( $target_file );
 $numLines = count ( $lines );
 if ($numLines > MAX_NUM_LINES) {
