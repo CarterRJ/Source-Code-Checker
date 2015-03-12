@@ -1,18 +1,14 @@
 <?php
 include ("config.php");
-echo '<link href="css/lighter.css" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="css/index.css">';
+include 'css/css.php';
+include 'js/js.php';
 
+var_dump($_FILES);
 // Error Checking
 echo "<h2> Feedback </h2>";
 $source_too_long = false;
 // L006 Source file should not be too long
-echo $target_file;
-
-
-
-
-
+//echo $target_file;
 $lines = file ( $target_file );
 $numLines = count ( $lines );
 if ($numLines > MAX_NUM_LINES) {
@@ -30,11 +26,10 @@ foreach ( $lines as $line ) {
 		echo "<p>" . $line . " <strong>line too long max line length = " . MAX_LINE_LENGTH . " </strong></p>";
 	}
 }
-//var_dump ( $longlines );
 
-// F002 File names should not be too long F002 *PERSONAL VERSION
+// F002 File names should not be too long (F002 *PERSONAL VERSION)
 if (strlen ( basename ( $target_file ) ) > MAX_FILENAME_LENGTH) {
-	echo "<p> File name <strong>" . basename ( $target_file ) . " </strong>too long <strong> max length = " . MAX_FILENAME_LENGTH . "</strong></p>";
+	echo "<p> File name <strong>" . $_FILES ["fileToUpload"] ["name"] . " </strong>too long <strong> max length = " . MAX_FILENAME_LENGTH . "</strong></p>";
 }
 
 // F001 Source files should not use solely the '\r' (CR) character FAILED
