@@ -65,7 +65,7 @@ if (isset ( $_SESSION ['LoggedIn'] ) && isset ( $_SESSION ['Username'] )) // If 
 	$username = mysqli_escape_string ( $db_conn, $_POST ['username'] );
 	$password = md5 ( mysqli_escape_string ( $db_conn, $_POST ['password'] ) );
 	
-	$checklogin = mysqli_query ( $db_conn, "SELECT * FROM users WHERE Username = '" . $username . "' AND Password = '" . $password . "'" );
+	$checklogin = mysqli_query ( $db_conn, "SELECT * FROM users WHERE Username LIKE BINARY '" . $username . "' AND Password LIKE BINARY '" . $password . "'" );
 	if (mysqli_num_rows ( $checklogin ) == 1) {
 		$row = mysqli_fetch_array ( $checklogin );
 		$email = $row ['Email'];

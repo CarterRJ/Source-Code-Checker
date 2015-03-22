@@ -3,24 +3,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Admin Area | Source Code Checker</title>
-<link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
-<link rel="stylesheet" href="../css/lighter.css" type="text/css" />
-<link rel="stylesheet" href="../css/login.css" type="text/css" />
-<script src="../js/jquery.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script>
-		$(".nav-link").click(
-				function(e) {
-					e.preventDefault();
-					var link = $(this);
-					var href = link.attr("href");
-					$("html,body").animate({
-						scrollTop : $(href).offset().top - 80
-					}, 500);
-					link.closest(".navbar").find(
-							".navbar-toggle:not(.collapsed)").click();
-				});
-	</script>
+<?php
+include_once '../css/css.php';
+include_once '../js/js.php';
+?>
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -59,8 +45,10 @@ if ($_SESSION ['Admin'] == 0) {
 	echo "<meta http-equiv='refresh' content='2;index.php' />"; // Meta refresh
 	exit ();
 }
+//var_dump ( $_SESSION );
 ?>
 <h1>Admin Area</h1>
+
 		<p>
 			Thanks for logging in! You are
 
@@ -71,20 +59,28 @@ if ($_SESSION ['Admin'] == 0) {
 		<a href="logout.php">Log out</a>
 		<h2>My courses</h2>
 <?php
-
-if (!empty ( $_POST ['course'] )){
-	var_dump($_POST);
-	echo $newcourse = mysqli_query ( $db_conn, "INSERT INTO `courses` (`CourseID`, `Course`) VALUES (NULL, '".$_POST['course']."')");
-	echo $enrolnewcourse = mysqli_query($db_conn,"INSERT INTO `enrollments` (`Username`, `CourseID` ) VALUES ('".$_SESSION['Username']."', (SELECT CourseID FROM `Courses` WHERE Course = '".$_POST['course']."'))"); 
+//var_dump ( $_POST );
+if (isset ( $_POST ['delete'] )) {
+	if ($_POST ['delete'] == "Yes") {
+		$deletecourse = $db_conn->prepare ( 'DELETE FROM `courses` WHERE `CourseID` = ?' );
+		$deletecourse->bind_param ( 's', $_POST ['courseid'] );
+		$deletecourse->execute ();
+	}
 }
 
+if (! empty ( $_POST ['course'] )) {
+	var_dump ( $_POST );
+	echo $newcourse = mysqli_query ( $db_conn, "INSERT INTO `courses` (`CourseID`, `Course`) VALUES (NULL, '" . $_POST ['course'] . "')" );
+	echo $enrolnewcourse = mysqli_query ( $db_conn, "INSERT INTO `enrollments` (`Username`, `CourseID` ) VALUES ('" . $_SESSION ['Username'] . "', (SELECT CourseID FROM `Courses` WHERE Course = '" . $_POST ['course'] . "'))" );
+}
 
 $mycourses = mysqli_query ( $db_conn, "SELECT * FROM `courses` INNER JOIN enrollments ON enrollments.courseID = courses.CourseID WHERE Username = '$_SESSION[Username]' ORDER BY Course" );
 
 echo '<table class = "table">';
 while ( $row = mysqli_fetch_array ( $mycourses ) ) { // Creates a loop to loop through results
 	$course = $row ['Course'];
-	echo "<tr><th><a href='course.php?course=$course'>$course</a></th></tr>";
+	$courseID = $row ['CourseID'];
+	echo "<tr><th><a href='course.php?course=$course&courseid=$courseID'>$course</a></th></tr>";
 	$assignments = mysqli_query ( $db_conn, "SELECT * FROM `assignments` WHERE CourseID = " . $row ['CourseID'] );
 	$found = false;
 	while ( $ass_row = mysqli_fetch_array ( $assignments ) ) {
@@ -101,10 +97,6 @@ echo "</table>";
 // Free result set
 mysqli_free_result ( $mycourses );
 ?>
-<h2>
-			<a>Create a new Assignment</a>
-		</h2>
-
 		<h2>
 			<a>Create a new Course</a>
 		</h2>
@@ -116,9 +108,9 @@ mysqli_free_result ( $mycourses );
 					name="newcourse" id="newcourse" value="Submit" />
 			</fieldset>
 		</form>
-		
-		
-		
+
+
+
 		<h2>My submissions</h2>
 <?php
 echo '<table class ="table">';

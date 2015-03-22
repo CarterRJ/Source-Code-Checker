@@ -3,11 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Member Area | Source Code Checker</title>
-<link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
-<link rel="stylesheet" href="../css/lighter.css" type="text/css" />
-<link rel="stylesheet" href="../css/login.css" type="text/css" />
-<script src="../js/jquery.js"></script>
-<script src="../js/bootstrap.min.js"></script>
+<?php
+include_once '../css/css.php';
+include_once  '../js/js.php';
+?>
+
+
 <script>
 		$(".nav-link").click(
 				function(e) {
@@ -53,7 +54,14 @@
 <?php
 include "db-info.php";
 ?>
-
+<?php 
+if ($_SESSION ['Admin'] == 1) {
+	
+	echo "<h1>Hold on a second...</h1>";
+	echo "<p>We are now redirecting you the Admin area</p>";
+	echo "<meta http-equiv='refresh' content='2;admin.php' />"; // Meta refresh
+	exit ();
+}?>
 <h1>Member Area</h1>
 		<p>
 			Thanks for logging in! You are
