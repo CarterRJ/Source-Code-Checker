@@ -45,7 +45,19 @@ if ($_SESSION ['Admin'] == 0) {
 	echo "<meta http-equiv='refresh' content='2;index.php' />"; // Meta refresh
 	exit ();
 }
-//var_dump ( $_SESSION );
+if (isset ( $_POST ['course-delete'] )) {
+		$deletecourse = $db_conn->prepare ( 'DELETE FROM `courses` WHERE `CourseID` = ?' );
+		$deletecourse->bind_param ( 's', $_POST ['course-delete'] );
+		$deletecourse->execute ();
+		$deletecourse->close ();
+}
+if (isset ( $_POST ['course-rename']) && (!empty($_POST ['course-rename']))) {
+	$renamecourse = $db_conn->prepare ( 'UPDATE `courses` SET `Course` = ? WHERE `CourseID` = ?' );
+	$renamecourse->bind_param ( 'ss', $_POST ['course-rename'],  $_POST ['course-rename-btn']);
+	$renamecourse->execute ();
+	$renamecourse->close ();
+}
+// var_dump ( $_SESSION );
 ?>
 <h1>Admin Area</h1>
 
@@ -59,14 +71,7 @@ if ($_SESSION ['Admin'] == 0) {
 		<a href="logout.php">Log out</a>
 		<h2>My courses</h2>
 <?php
-//var_dump ( $_POST );
-if (isset ( $_POST ['delete'] )) {
-	if ($_POST ['delete'] == "Yes") {
-		$deletecourse = $db_conn->prepare ( 'DELETE FROM `courses` WHERE `CourseID` = ?' );
-		$deletecourse->bind_param ( 's', $_POST ['courseid'] );
-		$deletecourse->execute ();
-	}
-}
+var_dump ( $_POST );
 
 if (! empty ( $_POST ['course'] )) {
 	var_dump ( $_POST );
@@ -80,7 +85,19 @@ echo '<table class = "table">';
 while ( $row = mysqli_fetch_array ( $mycourses ) ) { // Creates a loop to loop through results
 	$course = $row ['Course'];
 	$courseID = $row ['CourseID'];
-	echo "<tr><th><a href='course.php?course=$course&courseid=$courseID'>$course</a></th></tr>";
+	echo "<tr><th><a href='course.php?course=$course&courseid=$courseID'>$course</a>";
+	$popover = '<p>
+			<strong><em> Are you sure?</em></strong>
+			</p>
+			<form method="post" action="admin.php" name="delete-form" id="delete-form">
+				<button type="submit" class="btn btn-success" name="course-delete" id="delete-btn" value = "' . $row ["CourseID"] . '">Yes</button>
+	
+			</form>';
+	echo '<button style="float: right;" type="button" class="btn btn-danger btn-default btn-sm"
+			data-toggle="popover" data-placement="left" data-trigger="focus" data-html="true" title=""
+					data-content=' . "'$popover'" . '>';
+	echo '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				Delete</button></th></tr>';
 	$assignments = mysqli_query ( $db_conn, "SELECT * FROM `assignments` WHERE CourseID = " . $row ['CourseID'] );
 	$found = false;
 	while ( $ass_row = mysqli_fetch_array ( $assignments ) ) {
@@ -132,7 +149,10 @@ mysqli_free_result ( $mysubmissions );
 echo '$_SESSION:';
 var_dump ( $_SESSION );
 ?>
+<script type="text/javascript">
+$("[data-toggle=popover]").popover();
+</script>
 
-</div>
+	</div>
 </body>
 </html>

@@ -6,7 +6,6 @@ include 'logout-header.php';
 
 $coursecheck = mysqli_query ( $db_conn, "SELECT * FROM `courses` WHERE CourseID = '" . $_SESSION ['courseid'] . "' AND Course = '" . $_SESSION ['course'] . "'" );
 if (mysqli_num_rows ( $coursecheck ) > 0) {
-	
 	echo "<h1> " . $_SESSION ['course'] . " </h1>";
 	$courseid = $_SESSION ['courseid'];
 } else {
@@ -16,13 +15,16 @@ if (mysqli_num_rows ( $coursecheck ) > 0) {
 	}
 }
 if(isset($_POST['assignment-name'])){
-	$addassignment = mysqli_query ( $db_conn, "INSERT INTO `assignments` (`AssignmentID`, `CourseID`, `AssignmentName`) VALUES (NULL, '$courseid', '" . $_POST ['assignment-name'] . "')" );
+	$addassignment = $db_conn->prepare ("INSERT INTO `assignments` (`AssignmentID`, `CourseID`, `AssignmentName`, `Description`) VALUES (NULL, ?,?,?)");
+	$addassignment->bind_param ("sss", $courseid, $_POST['assignment-name'], $_POST['assignment-description']);
+	$addassignment->execute();
 }
 
 if(isset($_POST['assign-delete'])){
 	$deleteassignment = $db_conn->prepare ( 'DELETE FROM `assignments` WHERE `AssignmentID` = ?' );
 		$deleteassignment->bind_param ( 's', $_POST ['assign-delete'] );
 		$deleteassignment->execute ();
+		$deleteassignment->close();
 }
 
 ?>
@@ -38,21 +40,28 @@ while ( $row = mysqli_fetch_array ( $getassignments ) ) {
 	
 			</form>';
 	//var_dump($row);
-	echo '<h4>' . $row ['AssignmentName'];
+	echo '<h4><a>' . $row ['AssignmentName']."</a>";
+	
 	echo '<button style="float: right;" type="button" class="btn btn-danger btn-default btn-sm"
-			data-toggle="popover" data-trigger="focus" data-html="true" title=""
+			data-toggle="popover" data-placement="left" data-trigger="focus" data-html="true" title=""
 					data-content='."'$popover'".'>';
 	echo '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 				Delete</button>';
+	echo '<p><small>'.$row["Description"].'</small></p>';
 	echo '</h4>';
 }
 ?>
 
-<form method="post" action="addAssignment.php" name="addAssignment-form"
+<form  class="form-inline" method="post" action="addAssignment.php" name="addAssignment-form"
 	id="addAssignment-form">
 	<fieldset>
 		<label for="assignment-name">Name:</label>
-		<input type="text" name="assignment-name" id="assignment-name" />
+		<input class="form-control" type="text" name="assignment-name" id="assignment-name" />
+				
+		<label for="assignment-description">Description:</label>
+		<textarea rows="4" cols="50" placeholder = "Description" name="assignment-description" id="assignment-description"></textarea>
+		
+		
 		<button name="addAssignment-btn" type="submit" class="btn btn-success btn-default btn-default">
 		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Assignment
 	</button>
