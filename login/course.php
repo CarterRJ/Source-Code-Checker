@@ -4,6 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Admin Area | Source Code Checker</title>
 </head>
+
 <?php
 include_once '../css/css.php';
 include_once '../js/js.php';
@@ -21,19 +22,54 @@ if ($_SESSION ['Admin'] == 0) {
 }
 
 if (! isset ( $_GET ['course'] ) && ! isset ( $_GET ['courseid'] )) {
-	echo "<meta http-equiv='refresh' content='0;index.php' />";
+	
+	if (! isset ( $_SESSION ['course'] ) && ! isset ( $_SESSION ['courseid'] )) {
+		echo "<meta http-equiv='refresh' content='0;index.php' />";
+	}
+} else {
+	$_SESSION ['course'] = $_GET ['course'];
+	$_SESSION ['courseid'] = $_GET ['courseid'];
 }
-$_SESSION ['course'] = $_GET ['course'];
-$_SESSION ['courseid'] = $_GET ['courseid'];
 
-var_dump ( $_SESSION );
 $coursecheck = mysqli_query ( $db_conn, "SELECT * FROM `courses` WHERE CourseID = '" . $_SESSION ['courseid'] . "' AND Course = '" . $_SESSION ['course'] . "'" );
 if (mysqli_num_rows ( $coursecheck ) > 0) {
-	echo "<h1> " . $_SESSION ['course'] . " </h1>";
 	$courseid = $_SESSION ['courseid'];
+	$course = $_SESSION ['course'];
+	echo '<ol class="breadcrumb">
+			<li><a href="admin.php">Home</a></li>
+			<li class="active">' . $course . '</a></li>
+		</ol>';
+	echo "<h1> $course </h1>";
+	echo "<h2>Students</h2>";
+	$getstudents = mysqli_query ( $db_conn, "SELECT * FROM `enrollments` INNER JOIN users ON enrollments.Username=users.Username WHERE CourseID = '" . $_SESSION ['courseid'] . "' AND Admin = 0" );
+	if (mysqli_num_rows ( $coursecheck ) == 0) {
+		echo "<p class = 'alert alert-danger'>no courses found matching '$searchpattern'</p>";
+	} else {
+		echo '<table class ="table-striped table">';
+		echo "<thead><tr>
+		<th>Students</th>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Grade</th>
+		</tr></thead><tbody>";
+		
+		while ( $row = mysqli_fetch_array ( $getstudents ) ) {
+			echo '<tr><td>';
+			echo $row ['Username'];
+			echo '</td><td>';
+			echo $row ['fName'];
+			echo '</td><td>';
+			echo $row ['lName'];
+			echo '</td><td>10</td></tr>';
+		}
+	}
+	echo '</table>';
 } else {
-	// do something
 	if (! mysqli_query ( $db_conn, $coursecheck )) {
+		echo "<h1>Something went wrong</h1>";
+		echo "<p>We are now redirecting you...</p>";
+		echo "<meta http-equiv='refresh' content='2;index.php' />"; // Meta refresh
+		exit ();
 		die ( 'Error: ' . mysqli_error ( $db_conn ) );
 	}
 }
@@ -72,16 +108,16 @@ $del_popover= '<p>
 	echo '</h4>';
 	?>
 <form method="post" action="addAssignment.php" name="addAssignment-form"
-			id="addAssignment-form">
-			<button name="addAssignment-btn"
-				value="<?php echo $_SESSION ['courseid']; ?>" type="submit"
-				class="btn btn-success btn-default btn-lg">
-				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-				Add Assignment
-			</button>
-		</form>
-		
+	id="addAssignment-form">
+	<button name="addAssignment-btn"
+		value="<?php echo $_SESSION ['courseid']; ?>" type="submit"
+		class="btn btn-success btn-default btn-lg">
+		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+		Assignment
+	</button>
+</form>
 
-		<script type="text/javascript">
+
+<script type="text/javascript">
 $("[data-toggle=popover]").popover();
 </script>

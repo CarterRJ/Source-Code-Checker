@@ -29,7 +29,7 @@ foreach ( $lines as $line ) {
 
 // F002 File names should not be too long (F002 *PERSONAL VERSION)
 if (strlen ( basename ( $target_file ) ) > MAX_FILENAME_LENGTH) {
-	echo "<p> File name <strong>" . $_FILES ["fileToUpload"] ["name"] . " </strong>too long <strong> max length = " . MAX_FILENAME_LENGTH . "</strong></p>";
+	if (!$uploaded)echo "<p> File name <strong>" . $_FILES ["fileToUpload"] ["name"] . " </strong>too long <strong> max length = " . MAX_FILENAME_LENGTH . "</strong></p>";
 }
 
 // F001 Source files should not use solely the '\r' (CR) character FAILED
