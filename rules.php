@@ -3,11 +3,11 @@ include ("config.php");
 include 'css/css.php';
 include 'js/js.php';
 
-var_dump($_FILES);
+//var_dump($_FILES);
 // Error Checking
 echo "<h2> Feedback </h2>";
 $source_too_long = false;
-// L006 Source file should not be too long
+//L006 Source file should not be too long
 //echo $target_file;
 $lines = file ( $target_file );
 $numLines = count ( $lines );
@@ -37,9 +37,9 @@ $count = 0;
 foreach ( $lines as $line ) {
 	$count ++;
 	if (strpos ( $line, chr ( 0x0D ) ) + 1 == strlen ( $line )) {
-		echo strpos ( $line, chr ( 0x0A ) ) + 1;
+		//echo strpos ( $line, chr ( 0x0A ) ) + 1;
 		echo ", ";
-		echo strlen ( $line );
+		//echo strlen ( $line );
 		echo "\n";
 		echo "<p>Source files should not use the '\\r' (CR) character. <strong>Line: " . $count . "</strong></p>";
 	}
@@ -107,7 +107,7 @@ foreach ( $lines as $line ) {
 		echo str_replace ( ' ', '&nbsp;', htmlentities ( $line, ENT_QUOTES, 'UTF-8' ) ) . '<br>';
 	}
 }
-echo '</div></code></div>';
+echo '</div></code>';
 
 ?>
 	

@@ -101,7 +101,8 @@ echo '<table class = "table">';
 // </tr>";
 while ( $row = mysqli_fetch_array ( $mycourses ) ) { // Creates a loop to loop through results
 	$course = $row ['Course'];
-	echo "<tr><td><a href='#'>$course</a></td></tr>";
+	$courseid = $row ['CourseID'];
+	echo "<tr><td><a href='course.php?course=$course&courseid=$courseid'>$course</a></td></tr>";
 }
 echo "</table>";
 // Free result set

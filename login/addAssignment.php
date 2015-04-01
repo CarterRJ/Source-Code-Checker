@@ -4,6 +4,16 @@ include '../css/css.php';
 include '../js/js.php';
 include 'logout-header.php';
 
+if (empty ( $_SESSION ))
+	$_SESSION ['Admin'] = 0;
+if ($_SESSION ['Admin'] == 0) {
+
+	echo "<h1>You don't have access the this area</h1>";
+	echo "<p>We are now redirecting you...</p>";
+	echo "<meta http-equiv='refresh' content='2;index.php' />"; // Meta refresh
+	exit ();
+}
+
 if(isset($_POST['addAssignment-id'])){
 	$_SESSION ['courseid'] = $_POST['addAssignment-id'];
 	$_SESSION ['course'] = $_POST['addAssignment-course'];

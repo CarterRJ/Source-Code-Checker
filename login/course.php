@@ -15,10 +15,10 @@ if (empty ( $_SESSION ))
 	$_SESSION ['Admin'] = 0;
 if ($_SESSION ['Admin'] == 0) {
 	
-	echo "<h1>You don't have access the this area</h1>";
+	/*echo "<h1>You don't have access the this area</h1>";
 	echo "<p>We are now redirecting you...</p>";
 	echo "<meta http-equiv='refresh' content='2;index.php' />"; // Meta refresh
-	exit ();
+	exit ();*/
 }
 
 if (! isset ( $_GET ['course'] ) && ! isset ( $_GET ['courseid'] )) {
@@ -35,47 +35,76 @@ $coursecheck = mysqli_query ( $db_conn, "SELECT * FROM `courses` WHERE CourseID 
 if (mysqli_num_rows ( $coursecheck ) > 0) {
 	$courseid = $_SESSION ['courseid'];
 	$course = $_SESSION ['course'];
-	echo '<ol class="breadcrumb">
-			<li><a href="admin.php">Home</a></li>
-			<li class="active">' . $course . '</a></li>
+	echo '<ol class="breadcrumb">';
+	if ($_SESSION ['Admin'] == 0) {
+		echo		'<li><a href="members.php">Home</a></li>';
+	}else{
+	echo		'<li><a href="admin.php">Home</a></li>';
+			
+	}
+			echo '<li class="active">' . $course . '</a></li>
 		</ol>';
 	echo "<h1> $course </h1>";
-	echo "<h2>Students</h2>";
-	$getstudents = mysqli_query ( $db_conn, "SELECT * FROM `enrollments` INNER JOIN users ON enrollments.Username=users.Username WHERE CourseID = '" . $_SESSION ['courseid'] . "' AND Admin = 0" );
-	if (mysqli_num_rows ( $coursecheck ) == 0) {
-		echo "<p class = 'alert alert-danger'>no courses found matching '$searchpattern'</p>";
-	} else {
-		echo '<table class ="table-striped table">';
-		echo "<thead><tr>
+// 	var_dump($_SESSION);
+
+	if ($_SESSION ['Admin'] == 1) {
+		$getstudents = mysqli_query ( $db_conn, "SELECT * FROM `enrollments` INNER JOIN users ON enrollments.Username=users.Username WHERE CourseID = '" . $_SESSION ['courseid'] . "' AND Admin = 0" );
+		if (mysqli_num_rows ( $getstudents ) == 0) {
+			echo "<p class = 'alert alert-danger'>No students currently enrolled</p>";
+		} else {
+			echo '<table class ="table-striped table">';
+			echo "<thead><tr>
 		<th>Students</th>
 		<th>First Name</th>
 		<th>Last Name</th>
 		<th>Grade</th>
 		</tr></thead><tbody>";
-		
-		while ( $row = mysqli_fetch_array ( $getstudents ) ) {
-			echo '<tr><td>';
-			echo $row ['Username'];
-			echo '</td><td>';
-			echo $row ['fName'];
-			echo '</td><td>';
-			echo $row ['lName'];
-			echo '</td><td>10</td></tr>';
+			
+			while ( $row = mysqli_fetch_array ( $getstudents ) ) {
+				echo '<tr><td>';
+				echo $row ['Username'];
+				echo '</td><td>';
+				echo $row ['fName'];
+				echo '</td><td>';
+				echo $row ['lName'];
+				echo '</td><td>10</td></tr>';
+			}
 		}
+	}else{
+		//STUDENT STUFF
+		echo "<h2>Assignments</h2>";
+		$getassignments = mysqli_query ( $db_conn, "SELECT * FROM `assignments` WHERE CourseID = $courseid ORDER BY AssignmentName ASC" );
+		if (mysqli_num_rows ( $getassignments ) == 0) {
+			echo "<p class = 'alert alert-danger'>There are no assignmets</p>";
+		} 
+
+		else {
+			while ( $row = mysqli_fetch_array ( $getassignments ) ) {
+				echo '<h4><a href="assignment.php?assign=' . $row ['AssignmentName'] . '&assignid=' . $row ['AssignmentID'] . '">' . $row ['AssignmentName'] . "</a></h4>";
+			}
+		}
+		echo "<!--";
 	}
-	echo '</table>';
-} else {
-	if (! mysqli_query ( $db_conn, $coursecheck )) {
-		echo "<h1>Something went wrong</h1>";
-		echo "<p>We are now redirecting you...</p>";
-		echo "<meta http-equiv='refresh' content='2;index.php' />"; // Meta refresh
-		exit ();
-		die ( 'Error: ' . mysqli_error ( $db_conn ) );
-	}
+	
+	
+	
+	
+	
+	
+		echo '</table>';
+	} else {
+		if (! mysqli_query ( $db_conn, $coursecheck )) {
+			echo "<h1>Something went wrong</h1>";
+			echo "<p>We are now redirecting you...</p>";
+			echo "<meta http-equiv='refresh' content='2;index.php' />"; // Meta refresh
+			exit ();
+			die ( 'Error: ' . mysqli_error ( $db_conn ) );
+		}
 }
 
 ?>
 <?php
+
 $del_popover= '<p>
 			<strong><em> Are you sure?</em></strong>
 			</p>

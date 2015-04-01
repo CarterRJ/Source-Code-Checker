@@ -1,6 +1,13 @@
 <?php
 // http://www.w3schools.com/php/php_file_upload.asp //They don't want you to copy
 include_once 'html.php';
+include_once 'login/db-info.php';
+
+if (isset($_SESSION['Admin'])){
+	include 'login/logout-header.php';
+}else{
+	include 'login-header.php';
+}
 // include_once 'db-info';
 function gen_random_code($length) {
 	$characters = "abcdefghijklmnopqrstuvwxyzABCDERFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -23,7 +30,7 @@ if (isset ( $_POST ["code"] )) {
 	do {
 		$rand_fname = gen_random_code ( $len_rand_fname );
 		$target_file = $target_dir . $rand_fname . ".c";
-		echo $uploadOk;
+		//echo $uploadOk;
 	} while ( file_exists ( $target_file ) );
 	file_put_contents ( $target_file, $text );
 	// Check file size
@@ -68,7 +75,7 @@ else if (isset ( $_POST ["submit"] )) {
 if ($uploadOk && ! empty ( $_POST )) {
 	include_once ("rules.php");
 	include_once ("vm-control.php");
-	var_dump($_FILES); var_dump($_POST);
+	//var_dump($_FILES); var_dump($_POST);
 } else {
 	include 'css/css.php';
 	include 'js/js.php';
