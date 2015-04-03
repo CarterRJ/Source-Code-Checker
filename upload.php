@@ -6,9 +6,25 @@ include_once 'login/db-info.php';
 if (isset($_SESSION['Admin'])){
 	include 'login/logout-header.php';
 }else{
-	include 'login-header.php';
+		include 'login-header.php';
 }
-// include_once 'db-info';
+
+//var_dump($_SESSION);
+
+if (!empty ( $_SESSION )) {
+echo '<ol class="breadcrumb">';
+	if ($_SESSION ['Admin'] == 0) {
+		echo '<li><a href="login/members.php">Home</a></li>';
+		//<li><a href="course.php">' . $course . '</a></li>
+		//<li class="active">' . $assign . '</a></li>';
+	} else {
+		echo '<li><a href="admin.php">Home</a></li>';
+		//<li><a href="addAssignment.php">' . $course . '</a></li>
+		//<li class="active">' . $assign . '</a></li>';
+	}
+	echo '</ol>';
+}
+
 function gen_random_code($length) {
 	$characters = "abcdefghijklmnopqrstuvwxyzABCDERFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	$randomString = "";

@@ -76,6 +76,7 @@ if (isset ( $_SESSION ['LoggedIn'] ) && isset ( $_SESSION ['Username'] )) // If 
 		$_SESSION ['LoggedIn'] = 1;
 		$_SESSION ['Admin'] = $admin;
 		
+		//session_regenerate_id();
 		echo "<h1>Success</h1>";
 		echo "<p>We are now redirecting you to the member area.</p>";
 		

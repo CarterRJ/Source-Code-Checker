@@ -124,7 +124,7 @@ $del_popover= '<p>
 			<strong><em>Enter the new course name</em></strong>
 			</p>
 			<form method="post" action="admin.php" name="delete-form" id="delete-form">
-				<input type = "text" name = "course-rename" id="course-rename">
+				<input type = "text" value = "'.$course.'" name = "course-rename" id="course-rename">
 				<button type="submit" class="btn btn-success" name="course-rename-btn" id="delete-btn" value = "'.$courseid.'">Submit</button>
 	
 			</form>';
@@ -141,8 +141,8 @@ $del_popover= '<p>
 	<button name="addAssignment-btn"
 		value="<?php echo $_SESSION ['courseid']; ?>" type="submit"
 		class="btn btn-success btn-default btn-lg">
-		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
-		Assignment
+		<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Manage
+		Assignments
 	</button>
 </form>
 

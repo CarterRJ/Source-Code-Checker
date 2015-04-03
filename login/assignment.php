@@ -4,6 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Admin Area | Source Code Checker</title>
 </head>
+<body>
 
 <?php
 include_once '../css/css.php';
@@ -11,6 +12,7 @@ include_once '../js/js.php';
 include 'logout-header.php';
 
 include "db-info.php";
+
 if (empty ( $_SESSION ) || !isset($_SESSION)){
 
 	echo "<h1>You don't have access the this area</h1>";
@@ -77,12 +79,11 @@ echo '<ol class="breadcrumb">';
 
 <?php
 $gettestcases = mysqli_query ( $db_conn, "SELECT * FROM `testcases` WHERE AssignmentID = $assignid ORDER BY TestCaseName ASC" );
-//echo '<table class = "table"><tbody>';
+
 echo "<h3 style = 'text-decoration: underline;'>Test Cases</h3>";
-		//<th>Input</th><th>Expected Output</th></tr>";
+
 if ($_SESSION['Admin'] == 1){
 while ( $row = mysqli_fetch_array ( $gettestcases ) ) {
-	//var_dump($row);
 	echo '<h4><a href="testcase.php?testcaseid='.$row ['TestCaseID'].'">'.$row ['TestCaseName'].'</a>';
 
 $del_popover= '<p>
@@ -122,9 +123,8 @@ $del_popover= '<p>
 
 }
 
-//echo "</tbody></table>";
-?><?php
 
+?><?php
 echo '<form class="form-inline" method="post" action="assignment.php" name="testcase-form" id="testcase-form">
 	<fieldset>
 		<label for="testcase-name">Name:</label> <input class="form-control"
@@ -134,7 +134,6 @@ echo '<form class="form-inline" method="post" action="assignment.php" name="test
 		<textarea rows="4" cols="50" placeholder="Description"
 			name="testcase-description" id="testcase-description"></textarea>
 
-
 		<button name="addTestCase-btn" type="submit"
 			class="btn btn-success btn-default btn-default">
 			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
@@ -142,20 +141,38 @@ echo '<form class="form-inline" method="post" action="assignment.php" name="test
 		</button>
 	</fieldset>
 </form>';
-}else{
-	while ( $row = mysqli_fetch_array ( $gettestcases ) ) {
-		echo '<h4><a href="submit.php?testcaseid='.$row ['TestCaseID'].'">'.$row ['TestCaseName'].'</a>';
-
-	echo '<form method="get" action="submit.php" name="submit-form" id="submit-form">
-		<button style="float: right;" name = "testcaseid" type="submit" class="btn" value = "'.$row['TestCaseID'].'">';
-	echo '<span class="glyphicon glyphicon glyphicon glyphicon-cloud-upload" aria-hidden="true"></span>
-				Submit Solution</button></form>';
-	
-	echo "<p><small>".$row['Description']."&nbsp</small></h4>";
+} else {
+	echo "<table class = 'table table-border'><thead><tr><th>Exercise</th><th>Grade</th><th></th</tr></thead><tbody>";
+	while ( $row = mysqli_fetch_array ( $gettestcases, MYSQL_ASSOC ) ) {
+		$description_html= "<p><small>" . $row ['Description'] . "</small></p></td>";
+		
+		$getgrades = mysqli_query ( $db_conn, "SELECT * FROM `grades` WHERE Username = '" . $_SESSION ['Username'] . "' AND TestCaseID = '" . $row ['TestCaseID'] . "'" );
+		$grade = mysqli_fetch_array ( $getgrades, MYSQL_ASSOC )['Grade'];
+		if ($grade != "") {
+			echo '<tr><td><h4>'. $row ['TestCaseName'];
+			echo $description_html;
+			echo "<td>$grade</td>";
+			echo '<td><form method="get" action="download.php" name="download-form" id="download-form">
+		<button style="float: right;" name = "testcaseid" type="submit" class="btn btn-success" value = "' . $row ['TestCaseID'] . '">';
+			echo '<span class="glyphicon glyphicon glyphicon glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+				Download Solution</button></form></h4>';
+		} else {
+			echo '<tr><td><h4><a href="submit.php?testcaseid=' . $row ['TestCaseID'] . '">' . $row ['TestCaseName'] . '</a>';
+			echo $description_html;
+			echo "<td>*no grade*</td>";
+		
+		echo '<td><form method="get" action="submit.php" name="submit-form" id="submit-form">
+		<button style="float: right;" name = "testcaseid" type="submit" class="btn" value = "' . $row ['TestCaseID'] . '">';
+		echo '<span class="glyphicon glyphicon glyphicon glyphicon-cloud-upload" aria-hidden="true"></span>
+				Submit Solution</button></form></td></tr></h4>';
+		}
 	}
+	echo "</tbody></table>";
 }
 ?>
+
 <script type="text/javascript">
 $("[data-toggle=popover]").popover();
 </script>
+</body>
 </html>

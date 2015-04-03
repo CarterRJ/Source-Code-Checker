@@ -125,8 +125,8 @@ while ( $row = mysqli_fetch_array ( $mycourses ) ) { // Creates a loop to loop t
 	echo '<form style="float: right;" method="post" action="addAssignment.php" name="addAssignment-form" id="addAssignment-form">
 			<input type = "hidden" name ="addAssignment-course" value = "'.$row["Course"].'">
 			<button name="addAssignment-id" value="'.$row["CourseID"].'" type="submit" class="btn btn-success btn-default btn-sm">
-			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-			Add Assignment</button></form></th></tr>';
+			<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+			Manage Assignments</button></form></th></tr>';
 					
 	$assignments = mysqli_query ( $db_conn, "SELECT * FROM `assignments` WHERE CourseID = " . $row ['CourseID'] );
 	$found = false;

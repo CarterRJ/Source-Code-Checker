@@ -18,7 +18,7 @@
 				<li><a href="../#faqs" class="nav-link">FAQs</a></li>
 				<li><a href="../#about" class="nav-link">About</a></li>
 				<li><a href="../#contact">Contact Us</a></li>
-				<li><a href="logout.php"><strong>Log in</strong></a></li>
+				<li><a href="login/index.php"><strong>Log in</strong></a></li>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->

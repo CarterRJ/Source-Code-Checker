@@ -23,7 +23,7 @@ foreach ( $lines as $line ) {
 	$count ++;
 	if (strlen ( $line ) > MAX_LINE_LENGTH) {
 		$longlines [] = $count;
-		echo "<p>" . $line . " <strong>line too long max line length = " . MAX_LINE_LENGTH . " </strong></p>";
+		echo "<p> Line: $count too long, <strong>max line length = " . MAX_LINE_LENGTH . " </strong></p>";
 	}
 }
 
@@ -32,13 +32,14 @@ if (strlen ( basename ( $target_file ) ) > MAX_FILENAME_LENGTH) {
 	if (!$uploaded)echo "<p> File name <strong>" . $_FILES ["fileToUpload"] ["name"] . " </strong>too long <strong> max length = " . MAX_FILENAME_LENGTH . "</strong></p>";
 }
 
-// F001 Source files should not use solely the '\r' (CR) character FAILED
+// F001 Source files should not use solely the '\r' (CR) character FAILED BROKEN
 $count = 0;
 foreach ( $lines as $line ) {
 	$count ++;
 	if (strpos ( $line, chr ( 0x0D ) ) + 1 == strlen ( $line )) {
+		$crlines [] = $count;
 		//echo strpos ( $line, chr ( 0x0A ) ) + 1;
-		echo ", ";
+		//echo ", ";
 		//echo strlen ( $line );
 		echo "\n";
 		echo "<p>Source files should not use the '\\r' (CR) character. <strong>Line: " . $count . "</strong></p>";
@@ -51,6 +52,7 @@ foreach ( $lines as $line ) {
 	$count ++;
 	if (preg_match ( "/\t.*/", "$line" )) {
 		echo "<p>Source files should not use tabs <strong>Line: " . $count . "</strong></p>";
+		$tablines [] = $count;
 	}
 }
 
@@ -82,35 +84,5 @@ if (count ( $lines ) > 0) {
 }
 
 // OUTPUT
-$output_count = 0;
-echo '<div class = "code"><code>';
-foreach ( $lines as $line ) {
-	$no_match = 1;
-	$output_count ++;
-	// Long source
-	If (($source_too_long = true) && ($output_count == MAX_NUM_LINES)) {
-		echo '<div class = "long_source">';
-	}
-	// Long lines
-	if ($longlines != null) {
-		foreach ( $longlines as $ll ) {
-			if ($output_count == $ll) {
-				$no_match = 0;
-				echo "<span class = \"max_lines\">";
-				$newstr = str_replace ( ' ', '&nbsp;', htmlentities ( $line ) );
-				echo $newstr;
-				echo "</span><br>";
-			}
-		}
-	}
-	if ($no_match) {
-		echo str_replace ( ' ', '&nbsp;', htmlentities ( $line, ENT_QUOTES, 'UTF-8' ) ) . '<br>';
-	}
-}
-echo '</div></code>';
 
 ?>
-	
-	
-	
-	
