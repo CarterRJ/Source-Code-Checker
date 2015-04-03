@@ -117,7 +117,7 @@ $del_popover= '<p>
 			data-toggle="popover" data-placement="left" data-trigger="click" data-html="true" title=""
 					data-content='."'$popover'".'>';
 	echo '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-				Rename</button>';
+				Edit</button>';
 	
 	echo "<p><small>".$row['Description']."&nbsp</small></h4>";
 

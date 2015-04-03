@@ -20,12 +20,13 @@ $getfile=mysqli_query($db_conn, $qry);
 if(mysqli_num_rows($getfile)==1) {
 	$row = mysqli_fetch_assoc($getfile);
 	$file = "../".$row['Directory']."/".$row['Filename'];
+	var_dump($row);
 	if( file_exists( $file ))
     {
     	readfile( $file );
     	header('Content-Description: File Transfer');
-    	header('Content-Type: text/plain');
-    	header('Content-Disposition: attachment; filename= "'.$row['RealFilename'].'"');
+    	//header('Content-Type: text/plain');
+    	//header('Content-Disposition: attachment; filename= "'.$row['RealFilename'].'"');
     	header('Content-Transfer-Encoding: binary');
     	header('Connection: Keep-Alive');
     	header('Expires: 0');

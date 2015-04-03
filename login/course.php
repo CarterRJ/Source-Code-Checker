@@ -61,13 +61,17 @@ if (mysqli_num_rows ( $coursecheck ) > 0) {
 		</tr></thead><tbody>";
 			
 			while ( $row = mysqli_fetch_array ( $getstudents ) ) {
+				$getavggrade = mysqli_query($db_conn, "SELECT AVG(Grade) AS avgGrade FROM `grades` INNER JOIN `testcases` ON `grades`.`TestCaseID` = `testcases`.`TestCaseID` INNER JOIN `assignments` ON `testcases`.AssignmentID = `assignments`.AssignmentID WHERE Username = '".$row ['Username']."' AND CourseID = '$courseid'");
+				//$getavggrade = mysqli_query($db_conn, "SELECT AVG(Grade) AS avgGrade FROM `grades`INNER JOIN `testcases` ON `grades`.`TestCaseID` = `testcases`.`TestCaseID`  WHERE AssignmentID = '102' AND Username = '".$row ['Username']."'");
+				
+				$grade = mysqli_fetch_assoc($getavggrade);
 				echo '<tr><td>';
 				echo $row ['Username'];
 				echo '</td><td>';
 				echo $row ['fName'];
 				echo '</td><td>';
 				echo $row ['lName'];
-				echo '</td><td>10</td></tr>';
+				echo '</td><td>'.round($grade['avgGrade'],2).'%</td></tr>';
 			}
 		}
 	}else{

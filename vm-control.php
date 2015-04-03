@@ -62,10 +62,12 @@ if (!empty($_FILES)){
 	/*echo "<p>FILE UPLOAD</p>";
 	echo "FILES";
 	var_dump($_FILES);*/
-	$errors = str_replace($filename, $_FILES['fileToUpload']['name'], $errors);
+	$real_filename = $_FILES['fileToUpload']['name'];
+	$errors = str_replace($filename, $real_filename, $errors);
 }else{
 	//echo '<p>NOT A FILE UPLOAD</p>';
-	$errors = str_replace($filename, "userfile.c", $errors);
+	$real_filename = "userfile.c";
+	$errors = str_replace($filename, $real_filename, $errors);
 }
 $errors = substr($errors,strpos($errors, "<br />")+6, strrpos($errors, "<br />")-strpos($errors, "<br />"));
 if (strlen($errors) > 0){
@@ -89,8 +91,7 @@ if (! empty ( $_SESSION ) && (strlen($errors) == 0)) {
 		$ssh->read ( '/.*@.*[$|#]/', NET_SSH2_READ_REGEX );
 		$ssh->write ( "echo >>$file_no_ext\n" );
 		$ssh->read ( '/.*@.*[$|#]/', NET_SSH2_READ_REGEX );
-		mysqli_query ( $db_conn, "INSERT INTO `files` (`Username`, `Filename`, `RealFilename`, `Directory`, `TestCaseID`) VALUES ('".$_SESSION ['Username']."', '$filename', '".$_FILES['fileToUpload']['name']."', '$directory', '".$_SESSION['testcaseid']."')");
-		
+		mysqli_query ( $db_conn, "INSERT INTO `files` (`Username`, `Filename`, `RealFilename`, `Directory`, `TestCaseID`) VALUES ('".$_SESSION ['Username']."', '$filename', '$real_filename', '$directory', '".$_SESSION['testcaseid']."')");
 	}
 	if (file_exists ( $target_dir . $file_no_ext )) {
 		$actual = file ( $target_dir . $file_no_ext, FILE_IGNORE_NEW_LINES );

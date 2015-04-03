@@ -1,5 +1,8 @@
 <?php
-session_start();
+if(!isset($_SESSION))
+{
+	session_start();
+}
  
 $dbhost = "localhost"; // this will ususally be 'localhost', but can sometimes differ
 $dbname = "3rd year individual project"; // the name of the database that you are going to use for this project
