@@ -59,19 +59,18 @@ if (mysqli_num_rows ( $coursecheck ) > 0) {
 			echo '<h2><a href="assignment.php?assign=' . $row ['AssignmentName'] . '&assignid=' . $row ['AssignmentID'] . '">' . $row ['AssignmentName'] . "</a>";
 			$getAVGassignGrade = mysqli_query ( $db_conn, "SELECT AVG(Grade) AS avgGrade FROM `grades` INNER JOIN `testcases` ON `grades`.`TestCaseID` = `testcases`.`TestCaseID` WHERE Username = '$user' AND AssignmentID = '" . $row ['AssignmentID'] . "'" );
 			echo "<p style = 'float: right;'>" . mysqli_fetch_assoc ( $getAVGassignGrade )['avgGrade'] . "%</p></h2>";
-			echo '<table class ="table-striped table">';
-			echo "<thead><tr>
+			$gettests = mysqli_query ( $db_conn, "SELECT * FROM `testcases` WHERE AssignmentID ='" . $row ['AssignmentID'] . "' ORDER BY TestCaseName ASC" );
+			if (mysqli_num_rows ( $gettests ) == 0) {
+				echo "<p class = 'alert alert-danger'>There are no tests</p>";
+			} 
+
+			else {
+				echo '<table class ="table-striped table">';
+				echo "<thead><tr>
 		<th>Tests</th>
 		<th>Grade</th>
 		<th></th>
 		</tr></thead><tbody>";
-			$gettests = mysqli_query ( $db_conn, "SELECT * FROM `testcases` WHERE AssignmentID ='" . $row ['AssignmentID'] . "' ORDER BY TestCaseName ASC" );
-			if (mysqli_num_rows ( $gettests ) == 0) {
-				echo "<p class = 'alert alert-danger'>There are no test</p>";
-			} 
-
-			else {
-				;
 				while ( $testcase = mysqli_fetch_assoc ( $gettests ) ) {
 					$getgrades = mysqli_query ( $db_conn, "SELECT * FROM `grades` WHERE TestCaseID ='" . $testcase ['TestCaseID'] . "' AND Username = '$user'" );
 					echo "<tr><td><h4>" . $testcase ['TestCaseName'] . "</td></h4>";
@@ -84,7 +83,7 @@ if (mysqli_num_rows ( $coursecheck ) > 0) {
 					}
 					
 					echo "<td style = 'width: 25%;';><p><span class ='btn-sm glyphicon glyphicon-download-alt'></span><a href= 'download.php?username=$user&testcaseid=" . $testcase ['TestCaseID'] . "'>Download Source</a></p>";
-							echo "<p><span class ='btn-sm glyphicon glyphicon glyphicon-comment'></span><a href=''>View Comments</a></p></td></tr>";
+							echo "<p><span class ='btn-sm glyphicon glyphicon glyphicon-comment'></span><a href= 'comments.php?username=$user&testcaseid=" . $testcase ['TestCaseID'] . "'>View Comments</a></p></td></tr>";
 				}
 			}
 			echo "</tbody></table>";

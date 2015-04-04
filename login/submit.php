@@ -19,10 +19,7 @@ if ($_SESSION ['Admin'] == 1) {
 	echo "<meta http-equiv='refresh' content='2;index.php' />"; // Meta refresh
 	exit ();
 }
-echo'SESSION';
-var_dump($_SESSION);
-echo'GET';
-var_dump($_GET);
+
 if (! isset ( $_GET ['testcaseid'] ) ){
 	if (! isset ( $_SESSION ['testcaseid'] )) {
 		echo "<meta http-equiv='refresh' content='0;index.php' />";
@@ -53,7 +50,6 @@ if (mysqli_num_rows ( $gettestcases ) != 1) {
 		exit ();
 	} else {
 		$testcase = $row ['TestCaseName'];
-		var_dump ( $row );
 		echo '<ol class="breadcrumb">';
 		echo '<li><a href="members.php">Home</a></li>';
 		echo '<li><a href="course.php">' . $course . '</a></li>

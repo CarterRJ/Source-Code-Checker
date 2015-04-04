@@ -13,7 +13,8 @@ $lines = file ( $target_file );
 $numLines = count ( $lines );
 if ($numLines > MAX_NUM_LINES) {
 	$source_too_long = true;
-	echo "<p>There are <strong>$numLines </strong>lines. The limit is <strong>" . MAX_NUM_LINES . "</strong></p>";
+	//echo "<p>There are <strong>$numLines </strong>lines. The limit is <strong>" . MAX_NUM_LINES . "</strong></p>";
+	$feedback[] =  "<p>There are <strong>$numLines </strong>lines. The limit is <strong>" . MAX_NUM_LINES . "</strong></p>";
 }
 
 // L006 Line should not be too long
@@ -23,13 +24,13 @@ foreach ( $lines as $line ) {
 	$count ++;
 	if (strlen ( $line ) > MAX_LINE_LENGTH) {
 		$longlines [] = $count;
-		echo "<p> Line: $count too long, <strong>max line length = " . MAX_LINE_LENGTH . " </strong></p>";
+		$feedback[] = "<p> Line: $count too long, <strong>max line length = " . MAX_LINE_LENGTH . " </strong></p>";
 	}
 }
 
 // F002 File names should not be too long (F002 *PERSONAL VERSION)
 if (strlen ( basename ( $target_file ) ) > MAX_FILENAME_LENGTH) {
-	if (!$uploaded)echo "<p> File name <strong>" . $_FILES ["fileToUpload"] ["name"] . " </strong>too long <strong> max length = " . MAX_FILENAME_LENGTH . "</strong></p>";
+	if (!$uploaded)$feedback[] =  "<p> File name <strong>" . $_FILES ["fileToUpload"] ["name"] . " </strong>too long <strong> max length = " . MAX_FILENAME_LENGTH . "</strong></p>";
 }
 
 // F001 Source files should not use solely the '\r' (CR) character FAILED BROKEN
@@ -42,7 +43,7 @@ foreach ( $lines as $line ) {
 		//echo ", ";
 		//echo strlen ( $line );
 		echo "\n";
-		echo "<p>Source files should not use the '\\r' (CR) character. <strong>Line: " . $count . "</strong></p>";
+		$feedback[] =  "<p>Source files should not use the '\\r' (CR) character. <strong>Line: " . $count . "</strong></p>";
 	}
 }
 
@@ -51,7 +52,7 @@ $count = 0;
 foreach ( $lines as $line ) {
 	$count ++;
 	if (preg_match ( "/\t.*/", "$line" )) {
-		echo "<p>Source files should not use tabs <strong>Line: " . $count . "</strong></p>";
+		$feedback[] =  "<p>Source files should not use tabs <strong>Line: " . $count . "</strong></p>";
 		$tablines [] = $count;
 	}
 }
@@ -67,7 +68,7 @@ foreach ( $lines as $line ) {
 		
 		if (($emptyLines > MAX_EMPTY_LINES) && ($discovered == false)) {
 			$discovered = true;
-			echo "<p>Too many consecutive empty lines. <strong>Line: $count </strong></p>";
+			$feedback[] =  "<p>Too many consecutive empty lines. <strong>Line: $count </strong></p>";
 		}
 	} else {
 		$emptyLines = 0;
@@ -79,7 +80,7 @@ foreach ( $lines as $line ) {
 $count = 0;
 if (count ( $lines ) > 0) {
 	if (trim ( $lines [0] ) == "") {
-		echo "<p>Source files should not have a leading empty line <strong>Line: $count</strong></p>";
+		$feedback[] =  "<p>Source files should not have a leading empty line <strong>Line: $count</strong></p>";
 	}
 }
 

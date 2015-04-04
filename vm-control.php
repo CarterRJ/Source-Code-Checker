@@ -1,18 +1,17 @@
 <?php
 
-echo "SESSION";
-var_dump($_SESSION);
-
-echo "POST";
-var_dump($_POST);
-
 set_include_path ( get_include_path () . PATH_SEPARATOR . 'phpseclib' );
 $filename = basename($target_file);
 $file_no_ext = substr($filename,0,strpos($filename, "."));
 $directory = pathinfo($target_file, PATHINFO_DIRNAME);
 
-$output;
-$return_var;
+/*$output;
+$return_var;*/
+echo implode($feedback);/*
+foreach($feedback as $fd){
+	echo $fd;
+}*/
+
 echo"filename";
 echo "<p>$filename</p>";
 echo"tagret_file";
@@ -96,7 +95,7 @@ if (! empty ( $_SESSION ) && (strlen($errors) == 0)) {
 	if (file_exists ( $target_dir . $file_no_ext )) {
 		$actual = file ( $target_dir . $file_no_ext, FILE_IGNORE_NEW_LINES );
 		$grade = runTestCase ( $inputs, $outputs, $actual );
-		mysqli_query ( $db_conn, "INSERT INTO `grades` (`Username`, `TestCaseID`, `Grade`) VALUES ('".$_SESSION ['Username']."', '".$_SESSION ['testcaseid']."', '$grade')");
+		mysqli_query ( $db_conn, "INSERT INTO `grades` (`Username`, `TestCaseID`, `Grade`, `Comments`) VALUES ('".$_SESSION ['Username']."', '".$_SESSION ['testcaseid']."', '$grade', '".implode($feedback)."')");
 	}
 	
 }
