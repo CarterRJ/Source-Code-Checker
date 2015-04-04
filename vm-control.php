@@ -7,10 +7,11 @@ $directory = pathinfo($target_file, PATHINFO_DIRNAME);
 
 /*$output;
 $return_var;*/
-echo implode($feedback);/*
-foreach($feedback as $fd){
-	echo $fd;
-}*/
+if(isset($feedback)) {
+	echo implode($feedback);
+}else{
+	$feedback = "";
+}
 
 echo"filename";
 echo "<p>$filename</p>";
@@ -98,6 +99,9 @@ if (! empty ( $_SESSION ) && (strlen($errors) == 0)) {
 		mysqli_query ( $db_conn, "INSERT INTO `grades` (`Username`, `TestCaseID`, `Grade`, `Comments`) VALUES ('".$_SESSION ['Username']."', '".$_SESSION ['testcaseid']."', '$grade', '".implode($feedback)."')");
 	}
 	
+}else{
+	$ssh->write ( "rm $filename\n" );
+	$ssh->read ( '/.*@.*[$|#]/', NET_SSH2_READ_REGEX );
 }
 $ssh->write ( "rm ./a.out\n" );
 $ssh->read ( '/.*@.*[$|#]/', NET_SSH2_READ_REGEX );

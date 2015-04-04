@@ -92,6 +92,7 @@ if (mysqli_num_rows ( $coursecheck ) > 0) {
 				echo '<h4><a href="assignment.php?assign=' . $row ['AssignmentName'] . '&assignid=' . $row ['AssignmentID'] . '">' . $row ['AssignmentName'] . "</a></h4>";
 			}
 		}
+		exit();
 	}
 		
 		echo '</table>';
