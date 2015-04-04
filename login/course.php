@@ -31,6 +31,13 @@ if (! isset ( $_GET ['course'] ) && ! isset ( $_GET ['courseid'] )) {
 	$_SESSION ['courseid'] = $_GET ['courseid'];
 }
 
+if (isset ( $_POST ['course-rename']) && (!empty($_POST ['course-rename']))) {
+	$renamecourse = $db_conn->prepare ( 'UPDATE `courses` SET `EnrollKey` = ?, `Course` = ? WHERE `CourseID` = ?' );
+	$renamecourse->bind_param ( 'sss', $_POST ['enroll-key'], $_POST ['course-rename'], $_POST ['course-rename-btn']);
+	$renamecourse->execute ();
+	$renamecourse->close ();
+}
+
 $coursecheck = mysqli_query ( $db_conn, "SELECT * FROM `courses` WHERE CourseID = '" . $_SESSION ['courseid'] . "' AND Course = '" . $_SESSION ['course'] . "'" );
 if (mysqli_num_rows ( $coursecheck ) > 0) {
 	$courseid = $_SESSION ['courseid'];
@@ -45,33 +52,31 @@ if (mysqli_num_rows ( $coursecheck ) > 0) {
 			echo '<li class="active">' . $course . '</a></li>
 		</ol>';
 	echo "<h1> $course </h1>";
-// 	var_dump($_SESSION);
 
 	if ($_SESSION ['Admin'] == 1) {
 		$getstudents = mysqli_query ( $db_conn, "SELECT * FROM `enrollments` INNER JOIN users ON enrollments.Username=users.Username WHERE CourseID = '" . $_SESSION ['courseid'] . "' AND Admin = 0" );
 		if (mysqli_num_rows ( $getstudents ) == 0) {
 			echo "<p class = 'alert alert-danger'>No students currently enrolled</p>";
 		} else {
+			echo "<h2>Enrolled Students</h2>";
 			echo '<table class ="table-striped table">';
 			echo "<thead><tr>
-		<th>Students</th>
 		<th>First Name</th>
 		<th>Last Name</th>
 		<th>Grade</th>
+		<th></th>
 		</tr></thead><tbody>";
 			
 			while ( $row = mysqli_fetch_array ( $getstudents ) ) {
 				$getavggrade = mysqli_query($db_conn, "SELECT AVG(Grade) AS avgGrade FROM `grades` INNER JOIN `testcases` ON `grades`.`TestCaseID` = `testcases`.`TestCaseID` INNER JOIN `assignments` ON `testcases`.AssignmentID = `assignments`.AssignmentID WHERE Username = '".$row ['Username']."' AND CourseID = '$courseid'");
-				//$getavggrade = mysqli_query($db_conn, "SELECT AVG(Grade) AS avgGrade FROM `grades`INNER JOIN `testcases` ON `grades`.`TestCaseID` = `testcases`.`TestCaseID`  WHERE AssignmentID = '102' AND Username = '".$row ['Username']."'");
 				
 				$grade = mysqli_fetch_assoc($getavggrade);
 				echo '<tr><td>';
-				echo $row ['Username'];
-				echo '</td><td>';
 				echo $row ['fName'];
 				echo '</td><td>';
 				echo $row ['lName'];
-				echo '</td><td>'.round($grade['avgGrade'],2).'%</td></tr>';
+				echo '</td><td>'.round($grade['avgGrade'],2).'%</td>';
+				echo '<td style = "width: 20%;"><a href="submissions.php?username='.$row['Username'].'">View Submissions</a></td></tr>';
 			}
 		}
 	}else{
@@ -87,14 +92,8 @@ if (mysqli_num_rows ( $coursecheck ) > 0) {
 				echo '<h4><a href="assignment.php?assign=' . $row ['AssignmentName'] . '&assignid=' . $row ['AssignmentID'] . '">' . $row ['AssignmentName'] . "</a></h4>";
 			}
 		}
-		echo "<!--";
 	}
-	
-	
-	
-	
-	
-	
+		
 		echo '</table>';
 	} else {
 		if (! mysqli_query ( $db_conn, $coursecheck )) {
@@ -108,6 +107,8 @@ if (mysqli_num_rows ( $coursecheck ) > 0) {
 
 ?>
 <?php
+$mycourses = mysqli_query ( $db_conn, "SELECT * FROM `courses` WHERE CourseID = '".$_SESSION['courseid']."' ORDER BY Course" );
+$row = mysqli_fetch_assoc( $mycourses );
 
 $del_popover= '<p>
 			<strong><em> Are you sure?</em></strong>
@@ -124,12 +125,14 @@ $del_popover= '<p>
 				Delete</button>';
 	echo '</h4>';
 	
-	$popover= '<p>
+	$popover= '<p  style = "margin: 0;">
 			<strong><em>Enter the new course name</em></strong>
 			</p>
-			<form method="post" action="admin.php" name="delete-form" id="delete-form">
+			<form method="post" action="course.php" name="delete-form" id="delete-form">
 				<input type = "text" value = "'.$course.'" name = "course-rename" id="course-rename">
-				<button type="submit" class="btn btn-success" name="course-rename-btn" id="delete-btn" value = "'.$courseid.'">Submit</button>
+				<p style = "margin: 0;"><strong><em>Enrollement Key</em></strong></p>
+				<input type = "text" value = "'. $row['EnrollKey'].'" name = "enroll-key" id="enroll-key">
+			<button type="submit" class="btn btn-success" name="course-rename-btn" id="delete-btn" value = "'.$courseid.'">Submit</button>
 	
 			</form>';
 
@@ -137,7 +140,7 @@ $del_popover= '<p>
 			data-toggle="popover" data-placement="left" data-trigger="click" data-html="true" title=""
 					data-content='."'$popover'".'>';
 	echo '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-				Rename</button>';
+				Rename/Edit</button>';
 	echo '</h4>';
 	?>
 <form method="post" action="addAssignment.php" name="addAssignment-form"

@@ -52,12 +52,12 @@ if (isset ( $_POST ['course-delete'] )) {
 		$deletecourse->close ();
 }
 if (isset ( $_POST ['course-rename']) && (!empty($_POST ['course-rename']))) {
-	$renamecourse = $db_conn->prepare ( 'UPDATE `courses` SET `Course` = ? WHERE `CourseID` = ?' );
-	$renamecourse->bind_param ( 'ss', $_POST ['course-rename'],  $_POST ['course-rename-btn']);
+	$renamecourse = $db_conn->prepare ( 'UPDATE `courses` SET `EnrollKey` = ?, `Course` = ? WHERE `CourseID` = ?' );
+	$renamecourse->bind_param ( 'sss', $_POST ['enroll-key'], $_POST ['course-rename'], $_POST ['course-rename-btn']);
 	$renamecourse->execute ();
 	$renamecourse->close ();
 }
-// //var_d_dump ( $_SESSION );
+
 ?>
 <ol class="breadcrumb">
 			<li><a href="admin.php">Home</a></li>
@@ -75,8 +75,8 @@ if (isset ( $_POST ['course-rename']) && (!empty($_POST ['course-rename']))) {
 		<a href="logout.php">Log out</a>
 		<h2>My courses</h2>
 <?php
-//var_d_dump ( $_POST );
-//var_d_dump ($_SESSION);
+//var_dump ( $_POST );
+//var_dump ($_SESSION);
 
 if (! empty ( $_POST ['course'] )) {
 	//var_d_dump ( $_POST );
@@ -88,9 +88,9 @@ $mycourses = mysqli_query ( $db_conn, "SELECT * FROM `courses` INNER JOIN enroll
 
 echo '<table class = "table">';
 while ( $row = mysqli_fetch_array ( $mycourses ) ) { // Creates a loop to loop through results
-	//var_d_dump($row);
 	$course = $row ['Course'];
 	$courseID = $row ['CourseID'];
+	
 	echo "<tr><th><a href='course.php?course=$course&courseid=$courseID'>$course</a>";
 	$del_popover = '<p>
 			<strong><em> Are you sure?</em></strong>
@@ -109,9 +109,9 @@ while ( $row = mysqli_fetch_array ( $mycourses ) ) { // Creates a loop to loop t
 			<strong><em>Course name</em></strong>
 			</p>
 			<form method="post" action="admin.php" name="delete-form" id="delete-form">
-				<input type = "text" name = "course-rename" id="course-rename">
+				<input type = "text" value = "'.$course.'" name = "course-rename" id="course-rename">
 		<p style = "margin: 0;"><strong><em>Enrollement Key</em></strong></p>
-				<input type = "text" name = "enroll-key" id="enroll-key">
+				<input type = "text" value = "'. $row['EnrollKey'].'"name = "enroll-key" id="enroll-key">
 				<button type="submit" class="btn btn-success" name="course-rename-btn" id="delete-btn" value = "'.$courseID.'">Submit</button>
 	
 			</form>';
