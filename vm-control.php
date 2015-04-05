@@ -10,7 +10,7 @@ $return_var;*/
 if(isset($feedback)) {
 	echo implode($feedback);
 }else{
-	$feedback = "";
+	$feedback[0] = "";
 }
 
 echo"filename";

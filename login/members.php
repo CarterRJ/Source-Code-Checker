@@ -6,52 +6,8 @@
 <?php
 include_once '../css/css.php';
 include_once  '../js/js.php';
-?>
+include_once 'logout-header.php';
 
-
-<script>
-		$(".nav-link").click(
-				function(e) {
-					e.preventDefault();
-					var link = $(this);
-					var href = link.attr("href");
-					$("html,body").animate({
-						scrollTop : $(href).offset().top - 80
-					}, 500);
-					link.closest(".navbar").find(
-							".navbar-toggle:not(.collapsed)").click();
-				});
-	</script>
-</head>
-<body>
-	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-	<div class="container">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target=".navbar-ex1-collapse">
-				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand nav-link" href="../#top">Ryan Carter - Source
-				Code Checker</a>
-		</div>
-		<!-- /.navbar-header -->
-
-		<div class="collapse navbar-collapse navbar-ex1-collapse">
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="../#features" class="nav-link">Features</a></li>
-				<li><a href="../#faqs" class="nav-link">FAQs</a></li>
-				<li><a href="../#about" class="nav-link">About</a></li>
-				<li><a href="../#contact">Contact Us</a></li>
-				<li><a href="logout.php"><strong>Log out</strong></a></li>
-			</ul>
-		</div>
-		<!-- /.navbar-collapse -->
-	</div>
-	<!-- /.container --> </nav>
-	<!-- /.navbar -->
-	<div id="main">
-<?php
 include "db-info.php";
 ?>
 <?php 
@@ -81,50 +37,39 @@ if (isset ($_POST['enroll-btn'])){
 
 ?>
 <h1>Member Area</h1>
-		<p>
-			Thanks for logging in! You are
+<p>
+	Thanks for logging in! You are
 
-			<code><?php echo $_SESSION['Username'] ?></code>
-			and your email address is
-			<code><?php echo $_SESSION['Email']?></code>
-			<p>
-				<a href="logout.php">Log out</a>
-			</p>
+	<code><?php echo $_SESSION['Username'] ?></code>
+	and your email address is
+	<code><?php echo $_SESSION['Email']?></code>
+	<p>
+		<a href="logout.php">Log out</a>
+	</p>
 
-			<h1>My courses</h1>
+	<h1>My Courses</h1>
 <?php
 
-$mycourses = mysqli_query ( $db_conn, "SELECT Course, `courses`.CourseID FROM `courses` INNER JOIN enrollments ON enrollments.courseID = courses.CourseID WHERE Username = '$_SESSION[Username]' ORDER BY Course" );
-echo '<table class = "table">';
-// echo "<tr>
-// <th>Course</th>
-// </tr>";
-while ( $row = mysqli_fetch_array ( $mycourses ) ) { // Creates a loop to loop through results
-	$course = $row ['Course'];
-	$courseid = $row ['CourseID'];
-	echo "<tr><td><a href='course.php?course=$course&courseid=$courseid'>$course</a></td></tr>";
+$mycourses = mysqli_query( $db_conn, "SELECT Course, `courses`.CourseID FROM `courses` INNER JOIN enrollments ON enrollments.courseID = courses.CourseID WHERE Username = '$_SESSION[Username]' ORDER BY Course" );
+if (mysqli_num_rows ( $mycourses ) == 0) {
+	echo '<div class="alert alert-info" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Error:</span>
+  You are not enrolled in any courses
+</div>';
+} else {
+	echo '<table class = "table">';
+	while ( $row = mysqli_fetch_array ( $mycourses ) ) { // Creates a loop to loop through results
+		$course = $row ['Course'];
+		$courseid = $row ['CourseID'];
+		echo "<tr><td><a href='course.php?course=$course&courseid=$courseid'>$course</a></td></tr>";
+	}
+	echo "</table>";
 }
-echo "</table>";
-// Free result set
-//mysqli_free_result ( $mycourses );
+
 ?>
 
-<h1>My submissions</h1>
 <?php
-echo '<table class ="table-striped table">';
-$mysubmissions = mysqli_query ( $db_conn, "SELECT Username, Course, Filename, Directory FROM uploads INNER JOIN courses ON uploads.CourseID=courses.CourseID where Username = '$_SESSION[Username]' ORDER BY Course" );
-echo "<thead><tr>
-		<th>Course</th>
-		<th>Filename</th>
-		<th>Directory</th>
-		</tr></thead><tbody>";
-while ( $row = mysqli_fetch_array ( $mysubmissions ) ) { // Creates a loop to loop through results
-	$filename = $row ['Filename'];
-	$directory = $row ['Directory'];
-	$course = $row ['Course'];
-	echo "<tr><td>$course</td><td><a href='..$directory/$filename'>$filename</a></td><td>$directory</td></tr>";
-}
-echo "</tbody></table>";
 echo '<h1>Enrollment</h1>';
 echo '<form action="members.php" method="get" name="search-form" id="search-form">
 		<input name = "search" type="text" class="form-control" placeholder="Search a course to enroll in">
@@ -140,10 +85,10 @@ mysqli_data_seek($mycourses,0);
 $allmycourses = mysqli_fetch_all ($mycourses);
 
 if ($numRows == 0) {
-	echo "<p class = 'alert alert-danger'>no courses found matching '$searchpattern'</p>";
+	echo "<p class = 'alert alert-danger'>No courses found matching '$searchpattern'</p>";
 }else{
 	
-	echo "<p style = 'margin-bottom: 10px;' class = 'alert alert-success'>$numRows rows found matching '$searchpattern'";
+	echo "<p style = 'margin-bottom: 10px;' class = 'alert alert-success'>$numRows course(s) found matching '$searchpattern'";
 	echo '<table class ="table-striped table">';
 	echo "<thead>
 			<tr>
@@ -175,13 +120,6 @@ while ( $row = mysqli_fetch_array ( $getcoursesearch ) ) {
 	}
 }
 echo'</thead></table>';
-
-mysqli_free_result ( $mysubmissions );
-/*echo 'POST';
-var_dump($_POST);
-echo 'SESSION';
-var_dump($_SESSION);*/
-
 ?>		
 		<script type="text/javascript">
 $("[data-toggle=popover]").popover();
