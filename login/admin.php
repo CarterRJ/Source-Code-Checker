@@ -6,6 +6,7 @@
 <?php
 include_once '../css/css.php';
 include_once '../js/js.php';
+
 ?>
 </head>
 <body>
@@ -38,12 +39,14 @@ include_once '../js/js.php';
 	<div id="main">
 <?php
 include "db-info.php";
-if ($_SESSION ['Admin'] == 0) {
+var_dump($_POST);
+if(!isset ($_SESSION ['Admin']) || $_SESSION ['Admin'] == 0) {
 	
 	echo "<h1>You don't have access the this area</h1>";
 	echo "<p>We are now redirecting you...</p>";
 	echo "<meta http-equiv='refresh' content='2;index.php' />"; // Meta refresh
-	exit ();
+	return ("redirecting");
+	exit ("redirecting");
 }
 if (isset ( $_POST ['course-delete'] )) {
 		$deletecourse = $db_conn->prepare ( 'DELETE FROM `courses` WHERE `CourseID` = ?' );
@@ -75,11 +78,8 @@ if (isset ( $_POST ['course-rename']) && (!empty($_POST ['course-rename']))) {
 		<a href="logout.php">Log out</a>
 		<h2>My courses</h2>
 <?php
-//var_dump ( $_POST );
-//var_dump ($_SESSION);
 
 if (! empty ( $_POST ['course'] )) {
-	//var_d_dump ( $_POST );
 	$newcourse = mysqli_query ( $db_conn, "INSERT INTO `courses` (`CourseID`, `Course`, `EnrollKey`) VALUES (NULL, '" . $_POST ['course'] . "','".$_POST ['EnrollKey']."')" );
 	$enrolnewcourse = mysqli_query ( $db_conn, "INSERT INTO `enrollments` (`Username`, `CourseID` ) VALUES ('" . $_SESSION ['Username'] . "', (SELECT CourseID FROM `Courses` WHERE Course = '" . $_POST ['course'] . "'))" );
 }
@@ -87,7 +87,7 @@ if (! empty ( $_POST ['course'] )) {
 $mycourses = mysqli_query ( $db_conn, "SELECT * FROM `courses` INNER JOIN enrollments ON enrollments.courseID = courses.CourseID WHERE Username = '$_SESSION[Username]' ORDER BY Course" );
 
 echo '<table class = "table">';
-while ( $row = mysqli_fetch_array ( $mycourses ) ) { // Creates a loop to loop through results
+while ( $row = mysqli_fetch_array ( $mycourses ) ) {
 	$course = $row ['Course'];
 	$courseID = $row ['CourseID'];
 	
@@ -121,14 +121,13 @@ while ( $row = mysqli_fetch_array ( $mycourses ) ) { // Creates a loop to loop t
 					data-content='."'$popover'".'>';
 	echo '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 				Rename/Edit</button>';
-	//echo '</h4>';
 	echo '<form style="float: right;" method="post" action="addAssignment.php" name="addAssignment-form" id="addAssignment-form">
 			<input type = "hidden" name ="addAssignment-course" value = "'.$row["Course"].'">
 			<button name="addAssignment-id" value="'.$row["CourseID"].'" type="submit" class="btn btn-success btn-default btn-sm">
 			<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
 			Manage Assignments</button></form></th></tr>';
 					
-	$assignments = mysqli_query ( $db_conn, "SELECT * FROM `assignments` WHERE CourseID = " . $row ['CourseID'] );
+	/*$assignments = mysqli_query ( $db_conn, "SELECT * FROM `assignments` WHERE CourseID = " . $row ['CourseID'] );
 	$found = false;
 	/*while ( $ass_row = mysqli_fetch_array ( $assignments ) ) {
 		$found = true;
@@ -139,7 +138,10 @@ while ( $row = mysqli_fetch_array ( $mycourses ) ) { // Creates a loop to loop t
 		echo "<tr><td>*none*</td></tr>";
 	}*/
 }
-//echo "<tr><td></td></tr>";
+if (mysqli_num_rows($mycourses) == 0){
+	echo "<p class = 'alert alert-danger'>You are not assigned to any courses.</p>";
+}
+
 echo "</table>";
 
 // Free result set

@@ -5,12 +5,8 @@ $filename = basename($target_file);
 $file_no_ext = substr($filename,0,strpos($filename, "."));
 $directory = pathinfo($target_file, PATHINFO_DIRNAME);
 
-/*$output;
-$return_var;*/
-if(isset($feedback)) {
-	echo implode($feedback);
-}else{
-	$feedback[0] = "";
+if(!isset ($feedback)){
+	$feedback = "";
 }
 
 echo"filename";
@@ -22,8 +18,21 @@ echo "<p>$file_no_ext</p>";
 echo "path";
 echo "<p>".pathinfo($target_file, PATHINFO_DIRNAME)."</p>";
 
+function myhtmlentities($string){
+	$string = htmlentities($string);
+	$string = str_replace ( ' ', '&nbsp;', $string);
+	$string = nl2br($string);
+	return $string;
+}
+
+function removePrompt($errors, $eol){
+	$len = strlen($eol);
+	$errors = substr($errors,strpos($errors, $eol)+$len, strrpos($errors, $eol)-strpos($errors, $eol));
+	return $errors;
+}
+
 function runTestCase($inputs, $outputs, $actual) {
-	echo "<h3>Execution Results:</h3>";
+	echo "<h2>Execution Results:</h2>";
 	$num_test = count ( $inputs );
 	$correct = 0;
 	for($i = 0; $i < $num_test; $i ++) {
@@ -56,12 +65,22 @@ $ssh->setTimeout(10);
 $ssh->write ( "cd /uploads/\n" );
 $ssh->read('/.*@.*[$|#]/', NET_SSH2_READ_REGEX);
 $ssh->write ( "gcc $filename\n" );
-$errors = nl2br(htmlentities($ssh->read('/.*@.*[$|#]/', NET_SSH2_READ_REGEX)));
+$errors = $ssh->read('/.*@.*[$|#]/', NET_SSH2_READ_REGEX);
+
+//Vera++
+$ssh->read ( '/.*@.*[$|#]/', NET_SSH2_READ_REGEX );
+$ssh->write ( "dos2unix $filename\n" );
+$ssh->read ( '/.*@.*[$|#]/', NET_SSH2_READ_REGEX );
+$ssh->write ( "vera++ $filename\n" );
+$vera = $ssh->read ( '/.*@.*[$|#]/', NET_SSH2_READ_REGEX );
+$vera = str_replace("$filename:", "Line ", $vera);
+//$vera = cleanRead($vera);
+echo "<h2>Feedback</h2>";
+$vera = removePrompt($vera, "\n");
+echo "<pre>$vera</pre>";
+preg_match_all('/(\d+):/', $vera, $feedback_lines_nums);
 
 if (!empty($_FILES)){
-	/*echo "<p>FILE UPLOAD</p>";
-	echo "FILES";
-	var_dump($_FILES);*/
 	$real_filename = $_FILES['fileToUpload']['name'];
 	$errors = str_replace($filename, $real_filename, $errors);
 }else{
@@ -69,20 +88,19 @@ if (!empty($_FILES)){
 	$real_filename = "userfile.c";
 	$errors = str_replace($filename, $real_filename, $errors);
 }
-$errors = substr($errors,strpos($errors, "<br />")+6, strrpos($errors, "<br />")-strpos($errors, "<br />"));
+$errors = removePrompt($errors, "\n");
 if (strlen($errors) > 0){
 	echo '<h2>Compilation Errors</h2>';
-	echo $errors;
+	echo "<pre>$errors</pre>";
 }else{
 	echo '<h4>No compilation errors.</h4>';
 }
-//$complines;
-preg_match_all('/:(\d+):/', $errors, $complines);
+preg_match_all('/:(\d+):/', $errors, $error_lines_nums);
 $ssh->write ( "./a.out\n" );
 $ssh->read ( '/.*@.*[$|#]/', NET_SSH2_READ_REGEX );
 
 include ("output.php");
-if (! empty ( $_SESSION ) && (strlen($errors) == 0)) {
+if (isset ( $_SESSION ['testcaseid'] ) && (strlen($errors) == 0)) {
 	$gettests = mysqli_query ( $db_conn, "SELECT * FROM `tests` WHERE TestCaseID =" . $_SESSION ['testcaseid'] );
 	while ( $row = mysqli_fetch_array ( $gettests, MYSQL_ASSOC ) ) {
 		$inputs [] = $row ['Input'];

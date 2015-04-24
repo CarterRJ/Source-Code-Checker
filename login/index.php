@@ -1,4 +1,5 @@
 <?php include "db-info.php"; ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -76,14 +77,13 @@ if (isset ( $_SESSION ['LoggedIn'] ) && isset ( $_SESSION ['Username'] )) // If 
 		$_SESSION ['LoggedIn'] = 1;
 		$_SESSION ['Admin'] = $admin;
 		
-		//session_regenerate_id();
-		echo "<h1>Success</h1>";
-		echo "<p>We are now redirecting you to the member area.</p>";
+		//echo "<h1>Success</h1>";
+		//echo "<p>We are now redirecting you to the member area.</p>";
 		
 		if($_SESSION['Admin'] != 0){
-			echo "<meta http-equiv='refresh' content='1;admin.php' />";
+			echo "<meta http-equiv='refresh' content='0;admin.php' />";
 		}else{
-		echo "<meta http-equiv='refresh' content='1;index.php' />"; // Meta refresh
+		echo "<meta http-equiv='refresh' content='0;index.php' />"; // Meta refresh
 		}
 	} else // Login failed.
 {

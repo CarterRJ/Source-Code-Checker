@@ -9,21 +9,3 @@
 .pasteBox, .uploadCode {
 margin-bottom: 10px;
 }
-
-#uploadCode>div {
-	/* 	margin: 48%; */
-	
-}
-.max_lines{
-	color: red;
-}
-
-.code{
-	background: lavender;
-}
-
-.long_source{
-	display: inline-block;
-	background: grey;
-	width: 100%;
-}

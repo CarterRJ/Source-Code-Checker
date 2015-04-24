@@ -11,9 +11,8 @@ include_once '../js/js.php';
 include 'logout-header.php';
 
 include "db-info.php";
-if (empty ( $_SESSION ))
-	$_SESSION ['Admin'] = 0;
-if ($_SESSION ['Admin'] == 0) {
+
+if (!isset($_SESSION ['Admin']) || $_SESSION ['Admin'] == 0) {
 	
 	/*echo "<h1>You don't have access the this area</h1>";
 	echo "<p>We are now redirecting you...</p>";
@@ -36,6 +35,7 @@ if (isset ( $_POST ['course-rename']) && (!empty($_POST ['course-rename']))) {
 	$renamecourse->bind_param ( 'sss', $_POST ['enroll-key'], $_POST ['course-rename'], $_POST ['course-rename-btn']);
 	$renamecourse->execute ();
 	$renamecourse->close ();
+	$_SESSION['course'] = $_POST ['course-rename'];
 }
 
 $coursecheck = mysqli_query ( $db_conn, "SELECT * FROM `courses` WHERE CourseID = '" . $_SESSION ['courseid'] . "' AND Course = '" . $_SESSION ['course'] . "'" );
@@ -97,14 +97,12 @@ if (mysqli_num_rows ( $coursecheck ) > 0) {
 		
 		echo '</table>';
 	} else {
-		if (! mysqli_query ( $db_conn, $coursecheck )) {
 			echo "<h1>Something went wrong</h1>";
 			echo "<p>We are now redirecting you...</p>";
-			echo "<meta http-equiv='refresh' content='2;index.php' />"; // Meta refresh
+			//echo "<meta http-equiv='refresh' content='2;index.php' />"; // Meta refresh
 			exit ();
-			die ( 'Error: ' . mysqli_error ( $db_conn ) );
 		}
-}
+
 
 ?>
 <?php
