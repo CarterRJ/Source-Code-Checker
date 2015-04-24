@@ -1,5 +1,4 @@
 <?php
-
 include "db-info.php";
 if (empty ( $_SESSION ) || !isset($_SESSION) || !isset($_GET['testcaseid'])){
 

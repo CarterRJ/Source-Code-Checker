@@ -6,11 +6,12 @@
 </head>
 
 <?php
+include "db-info.php";
 include_once '../css/css.php';
 include_once '../js/js.php';
-include 'logout-header.php';
+include_once '../header.php';
 
-include "db-info.php";
+
 
 if (!isset($_SESSION ['Admin']) || $_SESSION ['Admin'] == 0) {
 	

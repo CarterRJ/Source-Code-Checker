@@ -2,7 +2,7 @@
 include "db-info.php";
 include '../css/css.php';
 include '../js/js.php';
-include 'logout-header.php';
+include_once '../header.php';
 
 if (empty ( $_SESSION ))
 	$_SESSION ['Admin'] = 0;

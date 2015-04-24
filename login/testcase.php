@@ -5,11 +5,12 @@
 <title>Admin Area | Source Code Checker</title>
 </head>
 <?php
+include "db-info.php";
 include_once '../css/css.php';
 include_once '../js/js.php';
-include 'logout-header.php';
+include '../header.php';
 
-include "db-info.php";
+
 if (empty ( $_SESSION ))
 	$_SESSION ['Admin'] = 0;
 if ($_SESSION ['Admin'] == 0) {

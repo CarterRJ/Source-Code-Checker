@@ -7,11 +7,10 @@
 <body>
 
 <?php
+include "db-info.php";
 include_once '../css/css.php';
 include_once '../js/js.php';
-include 'logout-header.php';
-
-include "db-info.php";
+include_once '../header.php';
 
 if (empty ( $_SESSION ) || !isset($_SESSION)){
 

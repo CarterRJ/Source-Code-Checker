@@ -4,11 +4,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Member Area | Source Code Checker</title>
 <?php
+include "db-info.php";
 include_once '../css/css.php';
 include_once  '../js/js.php';
-include_once 'logout-header.php';
-
-include "db-info.php";
+include_once '../header.php';
 ?>
 <?php 
 if(!isset ($_SESSION ['Admin'])) {

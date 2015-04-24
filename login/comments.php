@@ -1,6 +1,7 @@
 <?php
 
 include "db-info.php";
+include_once '../header.php';
 if (empty ( $_SESSION ) || !isset($_SESSION) || !isset($_GET['testcaseid'])){
 
 	echo "<h1>You don't have access the this area</h1>";
