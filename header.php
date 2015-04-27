@@ -1,4 +1,5 @@
 <?php
+$siteroot = "/Third%20Year%20Project/";
 echo '<body>
 		
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -20,10 +21,10 @@ echo '<body>
 				<li><a href="../#faqs" class="nav-link">FAQs</a></li>
 				<li><a href="../#about" class="nav-link">About</a></li>';
 if (isset($_SESSION['Admin'])) {
-	echo '<li><a href="login/logout.php"><strong>Log out</strong></a></li>';
+	echo '<li><a href="'.$siteroot.'login/logout.php"><strong>Log out</strong></a></li>';
 } else {
 	
-	echo '<li><a href="login/index.php"><strong>Log in</strong></a></li>';
+	echo '<li><a href="'.$siteroot.'login/index.php"><strong>Log in</strong></a></li>';
 }
 echo '
 			</ul>

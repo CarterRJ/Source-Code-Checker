@@ -8,34 +8,11 @@
 <link href="css/lighter.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
-<body>
-	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-ex1-collapse">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand nav-link" href="#top">Ryan Carter -
-					Source Code Checker</a>
-			</div>
-			<!-- /.navbar-header -->
-
-			<div class="collapse navbar-collapse navbar-ex1-collapse">
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#features" class="nav-link">Features</a></li>
-					<li><a href="#faqs" class="nav-link">FAQs</a></li>
-					<li><a href="#about" class="nav-link">About</a></li>
-					<li><a href="login"><strong>Log in</strong></a></li>
-				</ul>
-			</div>
-			<!-- /.navbar-collapse -->
-		</div>
-		<!-- /.container -->
-	</nav>
-	<!-- /.navbar -->
-
+<?php
+include "login/db-info.php";
+include_once 'js/js.php';
+include 'header.php';
+?>
 	<div id="top" class="jumbotron">
 		<div class="container">
 			<h1>Source code checker/marker</h1>
@@ -69,8 +46,10 @@
 	</div>
 	<div class="container">
 		<h3 id="introduction" class="subhead">Introduction</h3>
-		<p style="font-size: 20px; text-align: center">As a group of eight
-			we have been given the task to design an hovercraft.</p>
+		<p style="font-size: 20px; text-align: center">
+		This tool allows you to quickly and easily create and mark programming 
+		exercises electronically.<br>Students can upload exercise solutions and the application automatically 
+		produces feedback on both the validity of the program output and the formatting of the source code. </p>
 		<h3 id="features" class="subhead">Features</h3>
 		<div class="row benefits">
 			<div class="col-md-4 col-sm-6 benefit">
@@ -91,8 +70,8 @@
 			<!-- /.benefit -->
 
 			<div class="col-md-4 col-sm-6 benefit">
-				<div class="benefit-ball">
-					<span class="glyphicon glyphicon-paperclip"></span>
+			<div class="benefit-ball">
+					<span class="glyphicon glyphicon-education"></span>
 				</div>
 				<h3>A Great Teaching Tool</h3>
 				<p>
@@ -220,21 +199,5 @@
 		</div>
 		<!-- /.container -->
 	</footer>
-
-	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script>
-		$(".nav-link").click(
-				function(e) {
-					e.preventDefault();
-					var link = $(this);
-					var href = link.attr("href");
-					$("html,body").animate({
-						scrollTop : $(href).offset().top - 80
-					}, 500);
-					link.closest(".navbar").find(
-							".navbar-toggle:not(.collapsed)").click();
-				});
-	</script>
 </body>
 </html>

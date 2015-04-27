@@ -95,14 +95,14 @@ if ($uploadOk && ! empty ( $_POST )) {
 } else {
 	include 'css/css.php';
 	include 'js/js.php';
-	echo "<meta http-equiv='refresh' content='4;index.html' />"; // Meta refresh
+	echo "<meta http-equiv='refresh' content='4;index.php' />"; // Meta refresh
 	echo "<div>";
 	if (empty($_FILES)&&empty($_POST)){
 		echo "<h1>Your file is too large</h1>";
 	}
 	echo "<p>Your file has not been uploaded.</p>";
 	echo "<p>We are now redirecting you</p>";
-	echo '<a href = "index.html">back</a>';
+	echo '<a href = "index.php">back</a>';
 	echo "</div>";
 }
 

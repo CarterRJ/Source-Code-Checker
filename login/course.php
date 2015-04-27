@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Admin Area | Source Code Checker</title>
+<title>Course | Source Code Checker</title>
 </head>
 
 <?php
@@ -11,10 +11,9 @@ include_once '../css/css.php';
 include_once '../js/js.php';
 include_once '../header.php';
 
-
+/*******************LOOK OUT BELOW***************/
 
 if (!isset($_SESSION ['Admin']) || $_SESSION ['Admin'] == 0) {
-	
 	/*echo "<h1>You don't have access the this area</h1>";
 	echo "<p>We are now redirecting you...</p>";
 	echo "<meta http-equiv='refresh' content='2;index.php' />"; // Meta refresh

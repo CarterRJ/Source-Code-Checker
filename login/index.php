@@ -1,4 +1,5 @@
-<?php include "db-info.php";
+<?php
+include "db-info.php";
 include '../css/css.php';
 include '../js/js.php';
 include '../header.php';
