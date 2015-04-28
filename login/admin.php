@@ -8,9 +8,7 @@ include_once '../css/css.php';
 include_once '../js/js.php';
 include_once '../header.php';
 
-<?php
 include "db-info.php";
-var_dump($_POST);
 if(!isset ($_SESSION ['Admin']) || $_SESSION ['Admin'] == 0) {
 	
 	echo "<h1>You don't have access the this area</h1>";
