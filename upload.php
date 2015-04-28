@@ -1,13 +1,8 @@
 <?php
 // http://www.w3schools.com/php/php_file_upload.asp //They don't want you to copy
-include_once 'html.php';
 include_once 'login/db-info.php';
+include 'header.php';
 
-if (isset($_SESSION['Admin'])){
-	include 'login/logout-header.php';
-}else{
-		include 'login-header.php';
-}
 
 //var_dump($_SESSION);
 

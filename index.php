@@ -18,7 +18,7 @@ include 'header.php';
 			<h1>Source code checker/marker</h1>
 			<h2>Helping YOU achieve YOUR goals since 1995</h2>
 			<p>
-				<a href="" class="btn btn-primary btn-lg">Download <span
+				<a href="https://github.com/CarterRJ/3rd-Year-Project-Automatic-Marking/archive/master.zip" class="btn btn-primary btn-lg">Download <span
 					class="glyphicon glyphicon-circle-arrow-down"></span></a>
 			</p>
 		</div>
@@ -60,9 +60,8 @@ include 'header.php';
 				<p>
 				<ul>
 
-					<li>Built cheaply at a low-cost budget of approximately 30
-						pounds!</li>
-					<li>Built out of readily available materials.</li>
+					<li>This project was built using only free tools and software</li>
+					<li>This project is open-source made with open-source software/libraries. </li>
 				</ul>
 
 				</p>
@@ -85,19 +84,6 @@ include 'header.php';
 			</div>
 			<!-- /.benefit -->
 
-			<div class="col-md-4 col-sm-6 benefit">
-				<div class="benefit-ball">
-					<span class="glyphicon glyphicon-ok"></span>
-				</div>
-				<h3>Safe &amp; Fun</h3>
-				<p>
-				<ul>
-
-					<li>The hovercraft can run indoors.</li>
-					<li>The hovercraft should operate for approximately ten
-						minutes.</li>
-					<li>The hovercraft is able to run autonomously!</li>
-				</ul>
 				</p>
 			</div>
 			<!-- /.benefit -->
@@ -106,63 +92,41 @@ include 'header.php';
 	</div>
 	<!-- /.container -->
 
-	<div class="container-alternate">
-		<div class="container"></div>
-		<!-- /.col-md-12 -->
-	</div>
-	<!-- /.row -->
-
-	<!-- /.container -->
-
-	<!-- /.container-alternate -->
-
 	<div class="container">
 		<h3 id="faqs" class="subhead">Frequently Asked Questions</h3>
 		<div class="row faqs">
 			<p class="col-md-4 col-sm-6">
-				<strong>Who is it for?</strong> <br> We want to create an
-				autonomous (having the freedom to control itself) hovercraft which
-				can be programmed by schoolchildren. The idea is to create a very
-				hands-on and practical learning environment for schoolchildren, it
-				should making programming fun!
+				<strong>Who is it for?</strong> <br> 
+				Teaching programming not only includes program correctness but good 
+				code structure; even correct code can be bad code.<br><br>
+				First year CS undergraduates (and beginner programmers) benefit from 
+				reliable and consistent evaluation of their source code, whilst 
+				alleviating the tedious task, for professors and teaching assistants, 
+				of marking trivial programs.
 			</p>
 			<p class="col-md-4 col-sm-6">
-				<strong>Why did you create it?</strong> <br> The majority of
-				schools have a very limited budget in which they can purchase
-				additional learning equipment. Ideally a school would purchase
-				around ten hovercrafts allowing multiple groups to work with them
-				simultaneously. <br>
+				<strong>Why did you create it?</strong> <br>Teaching staff find it tedious, 
+				repetitive and uninteresting to mark and grade small trivial programs written 
+				by undergraduates.<br><br>
+				Students find the grading of coursework to be too subjective and 
+				inconsistent. It takes too long to receive feedback on their 
+				submissions and it is difficult to know what the teaching staff expect 
+				prior to submission. Students' primary concern is receiving better 
+				feedback and achieving better grades.<br>
 			</p>
 			<p class="col-md-4 col-sm-6">
-				<strong>How can get my hands on one?</strong> <br> Lorem ipsum
-				dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
-				euismod tincidunt ut laoreet dolore magna. Ut wisi enim ad minim
-				veniam, quis nostrud exerci tation ullamcorper suscipit lobortis
-				nisl ut aliquip ex ea commodo consequat.
+				<strong>How can get my hands the application?</strong><br>
+				Simply click on the "<a href="#top">download</a>" link at the <a
+					href="#top">top of the page</a> to donwload the latest version
+					of the application.
 			</p>
 			<p class="col-md-4 col-sm-6">
-				<strong>How can I get involved and support the community?</strong> <br>
-				Simply click on the "<a href="#top">sign up</a>" link at the <a
-					href="#top">top of the page</a> and sign up to our community forum
-				to discuss improvements, solutions and keep up to date with the
-				latest developments. <br> We welcome your contributions!
+				<strong>How can I get involved and support the community?</strong><br>
+				Visit the <a href="https://github.com/CarterRJ/3rd-Year-Project-Automatic-Marking">
+				GitHub page</a> and contribute. Create a branch, an issue, a pull request, anything.
+				Join the community forum to discuss improvements, solutions and keep up to date with the
+				latest developments. We welcome your contributions!
 			</p>
-			<!--<p class="col-md-4 col-sm-6">
-					<strong>Lorem ipsum dolor sit amet?</strong>
-					<br>
-					Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-					nonummy nibh euismod tincidunt ut laoreet dolore magna.  Ut wisi enim
-					ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
-					lobortis nisl ut aliquip ex ea commodo consequat.
-				</p>
-				<p class="col-md-4 col-sm-6">
-					<strong>Lorem ipsum dolor sit amet?</strong>
-					<br>
-					Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-					nonummy nibh euismod tincidunt ut laoreet dolore magna.  Ut wisi enim
-					ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
-					lobortis nisl ut aliquip ex ea commodo consequat.
-				</p>-->
 		</div>
 		<!-- /.faqs -->
 	</div>
@@ -194,7 +158,7 @@ include 'header.php';
 		<div class="container clearfix">
 			<p class="pull-left">Copyright &copy; 2015</p>
 			<p class="pull-right">
-				<a href="http://www.engineering.ucl.ac.uk/">@Carter_RJ</a>
+				<a href="http://Twitter.com/Carter_RJ">@Carter_RJ</a>
 			</p>
 		</div>
 		<!-- /.container -->

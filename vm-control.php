@@ -8,7 +8,7 @@ $directory = pathinfo($target_file, PATHINFO_DIRNAME);
 if(!isset ($feedback)){
 	$feedback = "";
 }
-
+/*
 echo"filename";
 echo "<p>$filename</p>";
 echo"tagret_file";
@@ -16,7 +16,7 @@ echo "<p>$target_file</p>";
 echo "no ext";
 echo "<p>$file_no_ext</p>";
 echo "path";
-echo "<p>".pathinfo($target_file, PATHINFO_DIRNAME)."</p>";
+echo "<p>".pathinfo($target_file, PATHINFO_DIRNAME)."</p>";*/
 
 function myhtmlentities($string){
 	$string = htmlentities($string);
@@ -57,8 +57,10 @@ include ('Net\SSH2.php');
 $ssh = new Net_SSH2 ( '127.0.0.1:2222' );
 //WATCHOUT LITTERALS HERE wwwroot
 if (! $ssh->login ( 'vagrant', 'vagrant' )) {
+	echo "<h2>The system is currently unavaible, contact the system administrator</h2>";
 	exit ( 'Login Failed' );
 }
+
 echo "<div>";
 $ssh->read('/.*@.*[$|#]/', NET_SSH2_READ_REGEX);
 $ssh->setTimeout(10);
