@@ -4,6 +4,7 @@
 	min-height: 400px;
 	min-width: 350px;
 	display: block;
+	clear: both;
 }
 
 .pasteBox, .uploadCode {
