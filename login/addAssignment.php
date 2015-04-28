@@ -98,15 +98,15 @@ while ( $row = mysqli_fetch_array ( $getassignments ) ) {
 }
 ?>
 
-<form class="form-inline" method="post" action="addAssignment.php"
+<form class="form-horizontal" method="post" action="addAssignment.php"
 	name="addAssignment-form" id="addAssignment-form">
 	<fieldset>
-		<label for="assignment-name">Name:</label> <input class="form-control"
-			type="text" name="assignment-name" id="assignment-name" /> <label
-			for="assignment-description">Description:</label>
+		<label for="assignment-name">Name:</label> 
+		<input class="form-control"	type="text" name="assignment-name" id="assignment-name" />
+		<label for="assignment-description">Description:</label>
 		<textarea rows="4" cols="50" placeholder="Description"
-			name="assignment-description" id="assignment-description"></textarea>
-
+			name="assignment-description" id="assignment-description">
+		</textarea>
 
 		<button name="addAssignment-btn" type="submit"
 			class="btn btn-success btn-default btn-default">

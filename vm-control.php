@@ -5,9 +5,6 @@ $filename = basename($target_file);
 $file_no_ext = substr($filename,0,strpos($filename, "."));
 $directory = pathinfo($target_file, PATHINFO_DIRNAME);
 
-if(!isset ($feedback)){
-	$feedback = "";
-}
 /*
 echo"filename";
 echo "<p>$filename</p>";
@@ -45,7 +42,7 @@ function runTestCase($inputs, $outputs, $actual) {
 		}
 	}
 	if ($correct == $num_test) {
-		echo "<p>SUCCESS ";
+		echo "<p>SUCCESS</p> ";
 	}
 	$grade = round($correct*100/$num_test,2);
 	echo "<p><strong>$correct/$num_test</strong> - $grade%</p>";
@@ -116,7 +113,7 @@ if (isset ( $_SESSION ['testcaseid'] ) && (strlen($errors) == 0)) {
 	if (file_exists ( $target_dir . $file_no_ext )) {
 		$actual = file ( $target_dir . $file_no_ext, FILE_IGNORE_NEW_LINES );
 		$grade = runTestCase ( $inputs, $outputs, $actual );
-		mysqli_query ( $db_conn, "INSERT INTO `grades` (`Username`, `TestCaseID`, `Grade`, `Comments`) VALUES ('".$_SESSION ['Username']."', '".$_SESSION ['testcaseid']."', '$grade', '".implode($feedback)."')");
+		mysqli_query ( $db_conn, "INSERT INTO `grades` (`Username`, `TestCaseID`, `Grade`, `Comments`) VALUES ('".$_SESSION ['Username']."', '".$_SESSION ['testcaseid']."', '$grade', '".nl2br(implode($actual,"\n")."\n".$vera)."')");
 	}
 	
 }else{

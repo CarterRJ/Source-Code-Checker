@@ -21,11 +21,6 @@ if ($_SESSION ['Admin'] == 0) {
 	exit ();
 }
 
-/*echo "SESSION";
-var_dump($_SESSION);
-echo "POST";
-var_dump($_POST);*/
-
 if (! isset ( $_GET ['testcaseid'] ) && empty ( $_POST )) {
 	if (! isset ( $_SESSION [testcaseid] )) {
 		echo "<meta http-equiv='refresh' content='0;index.php' />";
@@ -131,15 +126,16 @@ while ( $row = mysqli_fetch_array ( $gettests ) ) {
 echo '</tbody></table>';
 ?>
 
-	<form class="form-inline" method="post" action="testcase.php"
+	<form method="post" action="testcase.php"
 	name="testcase-form" id="testcase-form">
 	<fieldset>
-		<label for="test-input">Input:</label> <input class="form-control"
-			type="text" name="test-input" id="test-input" /> <label
-			style="width: inherit;" for="test-output">Expected Output:</label> <input
-			class="form-control" type="text" name="test-output" id="test-output" />
-		<button name="addTest-btn" type="submit"
-			class="btn btn-success btn-default btn-default">
+		<label for="test-input">Input:</label>
+		<input class="form-control"	type="text" name="test-input" id="test-input" />
+		
+		<label style="width: inherit;" for="test-output">Expected Output:</label>
+		<input class="form-control" type="text" name="test-output" id="test-output" />
+		
+		<button name="addTest-btn" type="submit" class="btn btn-success btn-default btn-default">
 			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
 			Test Case
 		</button>

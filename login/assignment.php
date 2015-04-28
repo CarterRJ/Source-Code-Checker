@@ -124,7 +124,7 @@ $del_popover= '<p>
 
 
 ?><?php
-echo '<form class="form-inline" method="post" action="assignment.php" name="testcase-form" id="testcase-form">
+echo '<form class="form-horizontal" method="post" action="assignment.php" name="testcase-form" id="testcase-form">
 	<fieldset>
 		<label for="testcase-name">Name:</label> <input class="form-control"
 			type="text" name="testcase-name" id="testcase-name" />
@@ -156,7 +156,7 @@ echo '<form class="form-inline" method="post" action="assignment.php" name="test
 			echo '<span class="glyphicon glyphicon glyphicon glyphicon glyphicon-download-alt" aria-hidden="true"></span>
 				Download Solution</button></form></h4>';
 		} else {
-			echo '<tr><td><h4><a href="submit.php?testcaseid=' . $row ['TestCaseID'] . '">' . $row ['TestCaseName'] . '</a>';
+			echo '<tr><td><h4 style="margin-top:0px;"><a href="submit.php?testcaseid=' . $row ['TestCaseID'] . '">' . $row ['TestCaseName'] . '</a>';
 			echo $description_html;
 			echo "<td>*no grade*</td>";
 		

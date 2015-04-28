@@ -8,9 +8,9 @@
 <?php
 include_once '../css/css.php';
 include_once '../js/js.php';
-include 'logout-header.php';
-
+include '../header.php';
 include "db-info.php";
+
 if (empty ( $_SESSION ))
 	$_SESSION ['Admin'] = 0;
 if ($_SESSION ['Admin'] == 0) {
@@ -27,13 +27,6 @@ if (isset ( $_GET ['username'] ) ){
 		echo "<meta http-equiv='refresh' content='0;index.php' />";
 	}
 } 
-
-/*if (isset ( $_POST ['course-rename']) && (!empty($_POST ['course-rename']))) {
-	$renamecourse = $db_conn->prepare ( 'UPDATE `courses` SET `EnrollKey` = ?, `Course` = ? WHERE `CourseID` = ?' );
-	$renamecourse->bind_param ( 'sss', $_POST ['enroll-key'], $_POST ['course-rename'], $_POST ['course-rename-btn']);
-	$renamecourse->execute ();
-	$renamecourse->close ();
-}*/
 
 $coursecheck = mysqli_query ( $db_conn, "SELECT * FROM `courses` WHERE CourseID = '" . $_SESSION ['courseid'] . "' AND Course = '" . $_SESSION ['course'] . "'" );
 if (mysqli_num_rows ( $coursecheck ) > 0) {
