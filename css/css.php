@@ -1,5 +1,5 @@
 <?php
-$siteroot = "/Third%20Year%20Project/";
+include '../siteroot.php';
 echo '<link rel="stylesheet" href="'.$siteroot.'css/index.css" type="text/css" />
 <link rel="stylesheet" href="'.$siteroot.'css/bootstrap.min.css" type="text/css" />
 <link rel="stylesheet" href="'.$siteroot.'css/lighter.css" type="text/css" />

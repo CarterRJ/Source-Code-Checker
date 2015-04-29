@@ -1,5 +1,5 @@
 <?php
-$siteroot = "/Third%20Year%20Project/";
+include 'siteroot.php';
 echo '<body>
 		
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
