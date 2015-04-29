@@ -1,5 +1,5 @@
 <?php
-include 'siteroot.php';
+$siteroot = "/Source-Code-Checker/";
 echo '<body>
 		
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">

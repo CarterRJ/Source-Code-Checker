@@ -1,5 +1,4 @@
 <?php
-include ("config.php");
 include 'css/css.php';
 include 'js/js.php';
 

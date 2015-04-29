@@ -10,7 +10,7 @@
 </head>
 <?php
 include "login/db-info.php";
-include_once 'js/js.php';
+include 'js/js.php';
 include 'header.php';
 ?>
 	<div id="top" class="jumbotron">
