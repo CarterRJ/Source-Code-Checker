@@ -13,7 +13,7 @@ echo '<ol class="breadcrumb">';
 		//<li><a href="course.php">' . $course . '</a></li>
 		//<li class="active">' . $assign . '</a></li>';
 	} else {
-		echo '<li><a href="admin.php">Home</a></li>';
+		echo '<li><a href="login/admin.php">Home</a></li>';
 		//<li><a href="addAssignment.php">' . $course . '</a></li>
 		//<li class="active">' . $assign . '</a></li>';
 	}
@@ -33,9 +33,7 @@ $len_rand_fname = 20;
 $target_dir = "uploads/";
 $max_file_size = 96000;
 $uploadOk = 1;
-$uploaded = 1; // Uploaded or Copy and Paste
- // var_dump ( $_FILES );
- // var_dump ( $_POST );
+
 if (isset ( $_POST ["code"] )) {
 	$text = $_POST ["code"];
 	do {

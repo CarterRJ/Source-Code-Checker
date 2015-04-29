@@ -10,16 +10,16 @@ echo '<body>
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand nav-link" href="../#top">Ryan Carter - Source
+			<a class="navbar-brand nav-link" href="'.$siteroot.'#top">Ryan Carter - Source
 				Code Checker</a>
 		</div>
 		<!-- /.navbar-header -->
 
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="../#features" class="nav-link">Features</a></li>
-				<li><a href="../#faqs" class="nav-link">FAQs</a></li>
-				<li><a href="../#about" class="nav-link">About</a></li>';
+				<li><a href="'.$siteroot.'#features" class="nav-link">Features</a></li>
+				<li><a href="'.$siteroot.'#faqs" class="nav-link">FAQs</a></li>
+				<li><a href="'.$siteroot.'#about" class="nav-link">About</a></li>';
 if (isset($_SESSION['Admin'])) {
 	echo '<li><a href="'.$siteroot.'login/logout.php"><strong>Log out</strong></a></li>';
 } else {

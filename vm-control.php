@@ -50,7 +50,7 @@ function runTestCase($inputs, $outputs, $actual) {
 	
 }
 
-include ('Net\SSH2.php');
+include ('Net/SSH2.php');
 $ssh = new Net_SSH2 ( '127.0.0.1:2222' );
 //WATCHOUT LITTERALS HERE wwwroot
 if (! $ssh->login ( 'vagrant', 'vagrant' )) {
