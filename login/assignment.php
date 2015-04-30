@@ -44,7 +44,7 @@ if(isset($_POST['testcase-delete'])){
 	$addtest->bind_param ("ss",$_POST['testcase-delete'], $_SESSION ['assignid']);
 	$addtest->execute();
 }
-//var_dump($_SESSION);
+
 $assignmentcheck = mysqli_query ( $db_conn, "SELECT * FROM `assignments` WHERE AssignmentID = '" . $_SESSION ['assignid'] . "' AND AssignmentName = '" . $_SESSION ['assign'] . "'" );
 if (mysqli_num_rows ( $assignmentcheck ) > 0) {
 	$courseid = $_SESSION ['courseid'];

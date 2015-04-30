@@ -59,7 +59,6 @@ include 'header.php';
 				<h3>Cheap</h3>
 				<p>
 				<ul>
-
 					<li>This project was built using only free tools and software</li>
 					<li>This project is open-source made with open-source software/libraries. </li>
 				</ul>

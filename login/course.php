@@ -11,15 +11,6 @@ include_once '../css/css.php';
 include_once '../js/js.php';
 include_once '../header.php';
 
-/*******************LOOK OUT BELOW***************/
-
-if (!isset($_SESSION ['Admin']) || $_SESSION ['Admin'] == 0) {
-	/*echo "<h1>You don't have access the this area</h1>";
-	echo "<p>We are now redirecting you...</p>";
-	echo "<meta http-equiv='refresh' content='2;index.php' />"; // Meta refresh
-	exit ();*/
-}
-
 if (! isset ( $_GET ['course'] ) && ! isset ( $_GET ['courseid'] )) {
 	
 	if (! isset ( $_SESSION ['course'] ) && ! isset ( $_SESSION ['courseid'] )) {
@@ -99,7 +90,7 @@ if (mysqli_num_rows ( $coursecheck ) > 0) {
 	} else {
 			echo "<h1>Something went wrong</h1>";
 			echo "<p>We are now redirecting you...</p>";
-			//echo "<meta http-equiv='refresh' content='2;index.php' />"; // Meta refresh
+			echo "<meta http-equiv='refresh' content='2;index.php' />"; // Meta refresh
 			exit ();
 		}
 

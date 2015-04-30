@@ -8,7 +8,7 @@ if (empty ( $_SESSION ) || !isset($_SESSION) || !isset($_GET['testcaseid'])){
 
 	echo "<h1>You don't have access the this area</h1>";
 	echo "<p>We are now redirecting you...</p>";
-	//echo "<meta http-equiv='refresh' content='2;index.php' />"; // Meta refresh
+	echo "<meta http-equiv='refresh' content='2;index.php' />"; // Meta refresh
 	exit ();
 }
 

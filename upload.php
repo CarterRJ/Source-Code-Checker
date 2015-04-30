@@ -1,21 +1,13 @@
 <?php
-// http://www.w3schools.com/php/php_file_upload.asp //They don't want you to copy
 include_once 'login/db-info.php';
 include 'header.php';
-
-
-//var_dump($_SESSION);
 
 if (!empty ( $_SESSION )) {
 echo '<ol class="breadcrumb">';
 	if ($_SESSION ['Admin'] == 0) {
 		echo '<li><a href="login/members.php">Home</a></li>';
-		//<li><a href="course.php">' . $course . '</a></li>
-		//<li class="active">' . $assign . '</a></li>';
 	} else {
 		echo '<li><a href="login/admin.php">Home</a></li>';
-		//<li><a href="addAssignment.php">' . $course . '</a></li>
-		//<li class="active">' . $assign . '</a></li>';
 	}
 	echo '</ol>';
 }

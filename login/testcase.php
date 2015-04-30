@@ -32,7 +32,6 @@ if (! isset ( $_GET ['testcaseid'] ) && empty ( $_POST )) {
 }
 
 
-
 if (isset ( $_POST ['addTest-btn'] )) {
 	$addtest = $db_conn->prepare ( "INSERT INTO `tests` (`TestID`, `TestCaseID`, `Input`, `Output`) VALUES (NULL,?,?,?)" );
 	$addtest->bind_param ( "sss", $_SESSION ['testcaseid'], $_POST ['test-input'], $_POST ['test-output'] );
@@ -70,7 +69,7 @@ if (mysqli_num_rows ( $testcasecheck ) > 0) {
 	
 	echo "<h1>Something went wrong</h1>";
 	echo "<p>We are now redirecting you...</p>";
-	//echo "<meta http-equiv='refresh' content='2;index.php' />"; // Meta refresh
+	echo "<meta http-equiv='refresh' content='2;index.php' />"; // Meta refresh
 	exit ();
 	die ( 'Error: ' . mysqli_error ( $db_conn ) );
 }

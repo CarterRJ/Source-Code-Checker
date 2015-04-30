@@ -68,7 +68,7 @@ while ( $row = mysqli_fetch_array ( $getassignments ) ) {
 				<button type="submit" class="btn btn-success" name="assign-delete" id="delete-btn" value = "'.$row["AssignmentID"].'">Yes</button>
 	
 			</form>';
-	////var_d_dump($row);
+
 	echo '<h4><a href="assignment.php?assign='.$row ['AssignmentName'].'&assignid='.$row ['AssignmentID'].'">' . $row ['AssignmentName']."</a>";
 		
 	echo '<button style="float: right;" type="button" class="btn btn-danger btn-default btn-sm"
@@ -118,8 +118,3 @@ while ( $row = mysqli_fetch_array ( $getassignments ) ) {
 <script type="text/javascript">
 $("[data-toggle=popover]").popover();
 </script>
-<?php
-//var_dump ( $_GET );
-//var_dump ( $_SESSION );
-//var_dump ( $_POST );
-?>

@@ -18,9 +18,6 @@ if(!isset ($_SESSION ['Admin'])) {
 	exit ("redirecting");
 }
 
-
-
-
 if ($_SESSION ['Admin'] == 1) {
 	
 	echo "<h1>Hold on a second...</h1>";

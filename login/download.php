@@ -4,7 +4,7 @@ if (empty ( $_SESSION ) || !isset($_SESSION) || !isset($_GET['testcaseid'])){
 
 	echo "<h1>You don't have access the this area</h1>";
 	echo "<p>We are now redirecting you...</p>";
-	//echo "<meta http-equiv='refresh' content='2;index.php' />"; // Meta refresh
+	echo "<meta http-equiv='refresh' content='2;index.php' />"; // Meta refresh
 	exit ();
 }
 
@@ -25,7 +25,7 @@ if(mysqli_num_rows($getfile)==1) {
     	readfile( $file );
     	header('Content-Description: File Transfer');
     	header('Content-Type: text/plain');
-    	//header('Content-Disposition: attachment; filename= "'.$row['RealFilename'].'"');
+    	//header('Content-Disposition: attachment; filename= "'.$row['RealFilename'].'"'); //Download or display in browser
     	header('Content-Transfer-Encoding: binary');
     	header('Connection: Keep-Alive');
     	header('Expires: 0');
@@ -33,7 +33,7 @@ if(mysqli_num_rows($getfile)==1) {
     	header('Pragma: public');
     	header('Content-Length: ' . filesize($file));
     	
-     // exit;
+     exit;
     }
   }else{
 die( "ERROR: File does not exist or you don't have permissions to download it." );

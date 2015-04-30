@@ -96,16 +96,7 @@ while ( $row = mysqli_fetch_array ( $mycourses ) ) {
 			<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
 			Manage Assignments</button></form></th></tr>';
 					
-	/*$assignments = mysqli_query ( $db_conn, "SELECT * FROM `assignments` WHERE CourseID = " . $row ['CourseID'] );
-	$found = false;
-	/*while ( $ass_row = mysqli_fetch_array ( $assignments ) ) {
-		$found = true;
-		$assignment = $ass_row ['AssignmentName'];
-		echo "<tr><td>$assignment</td></tr>";
-	}
-	if ($found == false) {
-		echo "<tr><td>*none*</td></tr>";
-	}*/
+
 }
 if (mysqli_num_rows($mycourses) == 0){
 	echo "<p class = 'alert alert-danger'>You are not assigned to any courses.</p>";
@@ -128,29 +119,7 @@ mysqli_free_result ( $mycourses );
 				<input type="submit" name="newcourse" id="newcourse" value="Submit" />
 			</fieldset>
 		</form>
-
-
-
-		<h2>My submissions</h2>
-<?php
-echo '<table class ="table">';
-$mysubmissions = mysqli_query ( $db_conn, "SELECT Username, Course, Filename, Directory FROM uploads INNER JOIN courses ON uploads.CourseID=courses.CourseID where Username = '$_SESSION[Username]' ORDER BY Course" );
-echo "<tr>
-		<th>Course</th>
-		<th>Filename</th>
-		<th>Directory</th>
-		</tr>";
-while ( $row = mysqli_fetch_array ( $mysubmissions ) ) { // Creates a loop to loop through results
-	$filename = $row ['Filename'];
-	$directory = $row ['Directory'];
-	$course = $row ['Course'];
-	echo "<tr><td>$course</td><td><a href='..$directory/$filename'>$filename</a></td><td>$directory</td></tr>";
-}
-echo "</table>";
-// Free result set
-mysqli_free_result ( $mysubmissions );
-
-?>
+		
 <script type="text/javascript">
 $("[data-toggle=popover]").popover();
 </script>
