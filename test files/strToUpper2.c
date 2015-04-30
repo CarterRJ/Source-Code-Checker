@@ -1,6 +1,3 @@
-
-
-
 #include <stdio.h>
 char* StrToUpper(char* str)
 {
@@ -10,7 +7,7 @@ char* StrToUpper(char* str)
     ++p) *p = toupper(*p);
     return str;
 }
-//Long line..............................................................................
+
 main (int argc, char *argv[])
 {
     printf("%s", StrToUpper(argv[1]));

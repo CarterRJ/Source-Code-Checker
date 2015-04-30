@@ -5,16 +5,6 @@ $filename = basename($target_file);
 $file_no_ext = substr($filename,0,strpos($filename, "."));
 $directory = pathinfo($target_file, PATHINFO_DIRNAME);
 
-/*
-echo"filename";
-echo "<p>$filename</p>";
-echo"tagret_file";
-echo "<p>$target_file</p>";
-echo "no ext";
-echo "<p>$file_no_ext</p>";
-echo "path";
-echo "<p>".pathinfo($target_file, PATHINFO_DIRNAME)."</p>";*/
-
 function myhtmlentities($string){
 	$string = htmlentities($string);
 	$string = str_replace ( ' ', '&nbsp;', $string);
@@ -52,7 +42,7 @@ function runTestCase($inputs, $outputs, $actual) {
 
 include ('Net/SSH2.php');
 $ssh = new Net_SSH2 ( '127.0.0.1:2222' );
-//WATCHOUT LITTERALS HERE wwwroot
+
 if (! $ssh->login ( 'vagrant', 'vagrant' )) {
 	echo "<h2>The system is currently unavaible, contact the system administrator</h2>";
 	exit ( 'Login Failed' );
@@ -73,30 +63,6 @@ $ssh->read ( '/.*@.*[$|#]/', NET_SSH2_READ_REGEX );
 $ssh->write ( "vera++ $filename\n" );
 $vera = $ssh->read ( '/.*@.*[$|#]/', NET_SSH2_READ_REGEX );
 $vera = str_replace("$filename:", "Line ", $vera);
-//$vera = cleanRead($vera);
-echo "<h2>Feedback</h2>";
-$vera = removePrompt($vera, "\n");
-echo "<pre>$vera</pre>";
-preg_match_all('/(\d+):/', $vera, $feedback_lines_nums);
-
-if (!empty($_FILES)){
-	$real_filename = $_FILES['fileToUpload']['name'];
-	$errors = str_replace($filename, $real_filename, $errors);
-}else{
-	//echo '<p>NOT A FILE UPLOAD</p>';
-	$real_filename = "userfile.c";
-	$errors = str_replace($filename, $real_filename, $errors);
-}
-$errors = removePrompt($errors, "\n");
-if (strlen($errors) > 0){
-	echo '<h2>Compilation Errors</h2>';
-	echo "<pre>$errors</pre>";
-}else{
-	echo '<h4>No compilation errors.</h4>';
-}
-preg_match_all('/:(\d+):/', $errors, $error_lines_nums);
-$ssh->write ( "./a.out\n" );
-$ssh->read ( '/.*@.*[$|#]/', NET_SSH2_READ_REGEX );
 
 include ("output.php");
 if (isset ( $_SESSION ['testcaseid'] ) && (strlen($errors) == 0)) {

@@ -31,7 +31,7 @@ function gen_random_code($length) {
 
 $len_rand_fname = 20;
 $target_dir = "uploads/";
-$max_file_size = 96000;
+$max_file_size = 20000;
 $uploadOk = 1;
 
 if (isset ( $_POST ["code"] )) {
@@ -39,7 +39,6 @@ if (isset ( $_POST ["code"] )) {
 	do {
 		$rand_fname = gen_random_code ( $len_rand_fname );
 		$target_file = $target_dir . $rand_fname . ".c";
-		//echo $uploadOk;
 	} while ( file_exists ( $target_file ) );
 	file_put_contents ( $target_file, $text );
 	// Check file size
@@ -55,8 +54,8 @@ else if (isset ( $_POST ["submit"] )) {
 	$target_file = $target_dir . basename ( $_FILES ["fileToUpload"] ["name"] );
 	$FileType = pathinfo ( $target_file, PATHINFO_EXTENSION );
 	
-	if ($FileType != "c") {
-		echo "Sorry, only .c files are allowed.\n";
+	if ($FileType != "c" && $FileType != "cpp") {
+		echo "Sorry, only .c and .cpp files are allowed.\n";
 		$uploadOk = 0;
 	}
 	
@@ -82,9 +81,7 @@ else if (isset ( $_POST ["submit"] )) {
 }
 
 if ($uploadOk && ! empty ( $_POST )) {
-	include_once ("rules.php");
 	include_once ("vm-control.php");
-	//var_dump($_FILES); var_dump($_POST);
 } else {
 	include 'css/css.php';
 	include 'js/js.php';

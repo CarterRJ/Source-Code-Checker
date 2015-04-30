@@ -1,8 +1,7 @@
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "ubuntu/trusty32"
   config.vm.provision :shell, path: "bootstrap.sh"
   config.vm.synced_folder "../uploads", "/uploads"
- # config.vm.network :forwarded_port, host: 4567, guest: 80
  config.vm.define :test1 do |test1|
  end
 end
